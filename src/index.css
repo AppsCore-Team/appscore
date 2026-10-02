@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+@theme {
+  --color-surface: #111317;
+  --color-surface-dim: #111317;
+  --color-surface-bright: #37393e;
+  --color-surface-container-lowest: #0c0e12;
+  --color-surface-container-low: #1a1c20;
+  --color-surface-container: #1e2024;
+  --color-surface-container-high: #282a2e;
+  --color-surface-container-highest: #333539;
+  --color-on-surface: #e2e2e8;
+  --color-on-surface-variant: #bacbb7;
+  --color-inverse-surface: #e2e2e8;
+  --color-inverse-on-surface: #2f3035;
+  --color-outline: #859582;
+  --color-outline-variant: #3c4b3b;
+  --color-surface-tint: #04e55e;
+  --color-primary: #7fff91;
+  --color-on-primary: #003911;
+  --color-primary-container: #10e760;
+  --color-on-primary-container: #006223;
+  --color-inverse-primary: #006e29;
+  --color-secondary: #c3c6d1;
+  --color-on-secondary: #2c3039;
+  --color-secondary-container: #434750;
+  --color-on-secondary-container: #b2b5bf;
+  --color-tertiary: #ffdfcb;
+  --color-on-tertiary: #4e2502;
+  --color-tertiary-container: #ffba8a;
+  --color-on-tertiary-container: #7a4821;
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+
+  --color-brand-pistachio: #99DE1D;
+  --color-brand: #90D618;
+  --color-brand-hover: #A3EB23;
+  --color-brand-soft: rgba(153, 222, 29, 0.12);
+  --color-brand-glow: rgba(153, 222, 29, 0.25);
+  
+  --color-carbon-950: #090A0D;
+  --color-carbon-900: #0D0F13;
+  --color-carbon-850: #13161C;
+  --color-carbon-800: #191D24;
+  --color-carbon-700: #222731;
+  --color-carbon-600: #2E3442;
+  --color-carbon-border: #202530;
+  --color-carbon-subtle: #1B202A;
+
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Space Grotesk", sans-serif;
+
+  --radius-sm: 0.25rem;
+  --radius-DEFAULT: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  --spacing-gutter: 1.5rem;
+  --spacing-gutter-mobile: 1rem;
+  --spacing-margin: 3rem;
+  --spacing-margin-mobile: 1.25rem;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2.5rem;
+}
+
+/* Custom Typography Utility Classes based on design specs */
+@layer utilities {
+  .text-display-xl {
+    font-size: 64px;
+    line-height: 72px;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+  }
+  .text-display-xl-mobile {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -0.02em;
+    font-weight: 800;
+  }
+  .text-headline-lg {
+    font-size: 44px;
+    line-height: 52px;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+  }
+  .text-headline-md {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+  .text-headline-sm {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+  }
+  .text-body-lg {
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -0.01em;
+    font-weight: 400;
+  }
+  .text-body-md {
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: 400;
+  }
+  .text-body-sm {
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: 0.01em;
+    font-weight: 400;
+  }
+  .text-label-mono-md {
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: 0.02em;
+    font-weight: 500;
+  }
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  font-family: var(--font-sans);
+  margin: 0;
+  min-height: 100vh;
+}
+
+
+
+/* Custom styles from screen.html */
+@layer utilities {
+
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #0d0f13;
+        color: #e5e7eb;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0d0f13;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #232730;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #333945;
+    }
+  
+}

@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"tertiary-container":"#49dd7f","surface-container-low":"#1b1b1f","on-primary-container":"#3b5900","secondary-container":"#83c300","on-surface-variant":"#c2caaf","on-tertiary-container":"#005d2d","outline":"#8c947b","surface-variant":"#343538","inverse-on-surface":"#303034","on-background":"#e3e2e6","surface-tint":"#97da0b","error":"#ffb4ab","on-tertiary-fixed":"#00210c","surface-container-high":"#292a2d","inverse-surface":"#e3e2e6","on-secondary-fixed":"#121f00","inverse-primary":"#466800","tertiary-fixed-dim":"#4de082","on-secondary-container":"#304b00","on-error":"#690005","surface-container-highest":"#343538","outline-variant":"#424935","tertiary":"#69fa99","primary":"#aff331","on-primary":"#223600","on-secondary-fixed-variant":"#334f00","surface-container":"#1f1f23","surface":"#121316","secondary-fixed":"#b2f746","secondary":"#9ddf2e","primary-container":"#94d600","primary-fixed":"#b2f736","surface-dim":"#121316","on-error-container":"#ffdad6","tertiary-fixed":"#6dfe9c","on-tertiary":"#003919","on-surface":"#e3e2e6","on-primary-fixed":"#121f00","on-primary-fixed-variant":"#344e00","on-secondary":"#213600","secondary-fixed-dim":"#98da27","error-container":"#93000a","on-tertiary-fixed-variant":"#005227","primary-fixed-dim":"#97da0b","surface-bright":"#38393c","surface-container-lowest":"#0d0e11","background":"#121316"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"margin-mobile":"1.25rem","space-xl":"2.5rem","space-sm":"0.5rem","gutter":"1.5rem","space-xs":"0.25rem","space-md":"1rem","space-lg":"1.5rem","margin":"3rem","gutter-mobile":"1rem"},fontFamily:{"title-md":["Inter"],"label-caps":["Space Grotesk"],"headline-md":["Space Grotesk"],"headline-sm":["Space Grotesk"],"display-xl-mobile":["Space Grotesk"],"body-lg":["Inter"],"headline-lg-mobile":["Space Grotesk"],"display-xl":["Space Grotesk"],"label-code":["JetBrains Mono"],"headline-lg":["Space Grotesk"],"body-md":["Inter"]},fontSize:{"title-md":["18px",{lineHeight:"26px",letterSpacing:"-0.01em",fontWeight:"500"}],"label-caps":["11px",{lineHeight:"16px",letterSpacing:"0.12em",fontWeight:"600"}],"headline-md":["28px",{lineHeight:"36px",letterSpacing:"-0.02em",fontWeight:"600"}],"headline-sm":["22px",{lineHeight:"30px",letterSpacing:"-0.01em",fontWeight:"600"}],"display-xl-mobile":["40px",{lineHeight:"48px",letterSpacing:"-0.03em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"26px",letterSpacing:"0em",fontWeight:"400"}],"headline-lg-mobile":["32px",{lineHeight:"40px",letterSpacing:"-0.02em",fontWeight:"600"}],"display-xl":["64px",{lineHeight:"72px",letterSpacing:"-0.04em",fontWeight:"700"}],"label-code":["13px",{lineHeight:"18px",letterSpacing:"0.02em",fontWeight:"500"}],"headline-lg":["44px",{lineHeight:"52px",letterSpacing:"-0.03em",fontWeight:"600"}],"body-md":["14px",{lineHeight:"22px",letterSpacing:"0em",fontWeight:"400"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 inset-x-0 z-50 transition-all duration-300"><div class="h-20 max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between"><div class="flex items-center gap-3"><a class="flex items-center gap-3 group" data-path="servicios" href="#"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VmznzS3SzHHfemOKMNsndUeZf_F7LfQ0dgPIGPTmKCjvN4YfbRLjACScuyFqJ4WLEcvBj00AApfo1l9NCoIY93HWEYtpL5JHWG8H-28HBmKOfRSN_CcTv9oUglE41qYVdJi2fYAJvbacAysGbFcvkkUiSLegnqI-RDhZmckghAr2o3SYlySdOLbd3BtoQkaErHq8nYD0jRApgIVsYqf3xrUcvaCHKm4kxzw8jtgGRcE97IfudD1vO7djQimxXTpNMd4NkZfO6ZLw"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm tracking-tight text-on-surface group-hover:text-primary transition-colors">AppsCore</span><span class="font-label-caps text-label-caps tracking-widest text-outline uppercase">Digital Architecture</span></div></a></div><nav class="hidden lg:flex items-center gap-1 px-4 py-1.5 rounded-full bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.4)] border border-outline-variant/30" data-active-classes="text-primary font-bold bg-surface-container-high/80 rounded-xl"><a aria-current="page" class="px-4 py-2 transition-colors text-primary font-bold bg-surface-container-high/80 rounded-xl" data-path="servicios" href="#">Servicios</a><a class="px-4 py-2 font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="casos-de-exito" href="#">Casos de Éxito</a><a class="px-4 py-2 font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="metodologia" href="#">Metodología</a><a class="px-4 py-2 font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="stack-tecnologico" href="#">Stack Tecnológico</a><a class="px-4 py-2 font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="estimador" href="#">Estimador</a></nav><div class="flex items-center gap-4"><a class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-primary text-on-primary font-title-md text-title-md font-semibold tracking-tight shadow-[0_0_24px_-4px_rgba(175,243,49,0.35)] hover:bg-primary-fixed hover:shadow-[0_0_32px_rgba(175,243,49,0.5)] transition-all" data-path="cotizar-proyecto" href="#">Cotizar Proyecto</a><button class="lg:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined">menu</span></button></div></div></header><main class="w-full pt-20 bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Ambient Glow Field -->
+<div class="relative w-full overflow-hidden">
+<div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[480px] bg-primary/10 rounded-full blur-[140px] pointer-events-none"></div>
+<div class="absolute top-80 right-10 w-[420px] h-[360px] bg-tertiary-container/5 rounded-full blur-[120px] pointer-events-none"></div>
+<!-- HERO SECTION -->
+<section class="relative max-w-7xl mx-auto px-6 lg:px-12 pt-12 pb-20 lg:pt-16 lg:pb-28">
+<div class="flex flex-col items-center text-center max-w-4xl mx-auto">
+<!-- Status Indicator Pill -->
+<div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-surface-container-high/80 backdrop-blur-md shadow-sm mb-8">
+<span class="inline-flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-caps text-label-caps text-on-surface uppercase tracking-widest">Estudio de Ingeniería de Software a la Medida</span>
+</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="font-label-code text-label-code text-primary">Aceptando 2 proyectos este trimestre</span>
+</div>
+<!-- Master Headline -->
+<h1 class="font-display-xl text-display-xl tracking-tight text-on-surface mb-6">
+          Construimos el software que tu negocio realmente necesita.
+          <span class="block bg-gradient-to-r from-primary via-secondary-fixed to-primary-container bg-clip-text text-transparent">
+            Exacto, escalable y sin límites.
+          </span>
+</h1>
+<!-- Executive Subtitle -->
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mb-10 leading-relaxed">
+          Diseñamos y desarrollamos soluciones digitales a la medida desde cero: plataformas web críticas, aplicaciones móviles nativas, sistemas ERP/CRM personalizados e integraciones complejas. Tu propiedad intelectual es 100% tuya.
+        </p>
+<!-- CTA Cluster -->
+<div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+<a class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-primary text-on-primary font-title-md text-title-md font-semibold tracking-tight shadow-lg shadow-primary/20 hover:bg-primary-fixed hover:shadow-primary/35 transition-all" href="#estimador">
+<span>Cotizar Proyecto a Medida</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</a>
+<a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-surface-container-high/70 text-on-surface hover:text-primary font-title-md text-title-md font-medium backdrop-blur-md transition-all shadow-sm" href="#proyectos">
+<span class="material-symbols-outlined text-lg text-primary">folder_open</span>
+<span>Ver Casos de Éxito / Portafolio</span>
+</a>
+</div>
+<!-- High-Tier Trust Metrics Bar -->
+<div class="w-full mt-16 pt-10 grid grid-cols-2 md:grid-cols-4 gap-6 bg-surface-container-lowest/60 backdrop-blur-md p-6 rounded-2xl shadow-xl">
+<div class="flex flex-col items-center md:items-start px-4">
+<span class="font-headline-md text-headline-md text-primary font-bold">120+</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Proyectos entregados</span>
+<span class="font-label-code text-label-code text-outline mt-1">Enterprise &amp; Scaleups</span>
+</div>
+<div class="flex flex-col items-center md:items-start px-4">
+<span class="font-headline-md text-headline-md text-on-surface font-bold">99.8%</span>
+<span class="font-body-md text-body-md text-on-surface-variant">A tiempo y en presupuesto</span>
+<span class="font-label-code text-label-code text-outline mt-1">Metodología estricta</span>
+</div>
+<div class="flex flex-col items-center md:items-start px-4">
+<span class="font-headline-md text-headline-md text-primary font-bold">100%</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Propiedad del código fuente</span>
+<span class="font-label-code text-label-code text-outline mt-1">Sin ataduras ni vendor-lock</span>
+</div>
+<div class="flex flex-col items-center md:items-start px-4">
+<span class="font-headline-md text-headline-md text-on-surface font-bold">99.99%</span>
+<span class="font-body-md text-body-md text-on-surface-variant">SLA y soporte garantizado</span>
+<span class="font-label-code text-label-code text-outline mt-1">Disponibilidad contractual</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- SHOWCASE BENTO OF ENGINEERING ARTIFACTS -->
+<section class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-16" id="proyectos">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+<div>
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase mb-2 block">Vitrina de Ingeniería Bespoke</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Arquitecturas que impulsan industrias líderes.</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+        Cada línea de código está optimizada para rendimiento crítico, alta concurrencia y seguridad de nivel institucional.
+      </p>
+</div>
+<!-- Bento Grid Showcase -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Bento Item 1: Custom Enterprise Telemetry Platform -->
+<div class="lg:col-span-8 bg-surface-container rounded-2xl p-8 flex flex-col justify-between overflow-hidden relative shadow-md group">
+<div class="flex items-center justify-between gap-4 mb-6 z-10">
+<div class="flex items-center gap-3">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="font-label-caps text-label-caps text-on-surface uppercase">Plataforma Logística Global · ERP &amp; Telemetría</span>
+</div>
+<span class="font-label-code text-label-code text-primary bg-surface-container-high px-3 py-1 rounded-md">Throughput: 42k req/s</span>
+</div>
+<div class="z-10 mb-6 max-w-lg">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Monitor de Despachos y Flotas en Tiempo Real</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Reemplazo de un software legacy por una arquitectura elástica reactiva con WebSockets sincronizados a sub-milisegundos para 1,800 puntos de distribución.
+          </p>
+</div>
+<!-- Custom Telemetry Visualization Mockup -->
+<div class="relative w-full h-64 rounded-xl bg-surface-container-lowest p-4 overflow-hidden shadow-inner flex flex-col justify-between">
+<div class="flex items-center justify-between text-outline text-label-code font-label-code border-b border-outline-variant/20 pb-3">
+<div class="flex items-center gap-4">
+<span class="text-primary font-bold">NODE_EU_CENTRAL_01</span>
+<span>CPU: 18.4%</span>
+<span>MEM: 2.1 GB / 16 GB</span>
+</div>
+<span class="text-tertiary">HEALTH: 100% OK</span>
+</div>
+<!-- Real-time SVG Sparkline Graph -->
+<div class="w-full h-32 flex items-end">
+<svg class="w-full h-full text-primary" fill="none" preserveaspectratio="none" viewbox="0 0 600 120">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#aff331" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#aff331" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,85 Q40,40 80,70 T160,35 T240,60 T320,25 T400,50 T480,20 T540,45 T600,15 L600,120 L0,120 Z" fill="url(#chartGradient)"></path>
+<path d="M0,85 Q40,40 80,70 T160,35 T240,60 T320,25 T400,50 T480,20 T540,45 T600,15" fill="none" stroke="currentColor" stroke-width="2.5"></path>
+</svg>
+</div>
+<div class="grid grid-cols-4 gap-2 pt-2 border-t border-outline-variant/10 font-label-code text-label-code text-on-surface-variant">
+<div><span class="text-outline">LATENCY:</span> 12ms</div>
+<div><span class="text-outline">PACKETS:</span> 0 Drop</div>
+<div><span class="text-outline">CONNS:</span> 84,210</div>
+<div class="text-right text-primary font-bold">STATUS: STREAMING</div>
+</div>
+</div>
+</div>
+<!-- Bento Item 2: Native Mobile High-Craft App -->
+<div class="lg:col-span-4 bg-surface-container rounded-2xl p-8 flex flex-col justify-between shadow-md">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-caps text-label-caps text-primary uppercase">App Nativa iOS &amp; Android</span>
+<span class="material-symbols-outlined text-primary">smartphone</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Banca Privada &amp; Custodia Digital</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+            Experiencia fluida a 120 FPS construida en Swift y Kotlin con encriptación biométrica de hardware.
+          </p>
+</div>
+<div class="relative w-full h-64 rounded-xl bg-surface-container-lowest p-5 flex flex-col justify-between shadow-inner">
+<div class="flex items-center justify-between">
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
+<span class="material-symbols-outlined text-sm">lock</span>
+</div>
+<span class="font-label-code text-label-code text-outline">FaceID Verificado</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-code text-label-code text-outline uppercase tracking-wider">Activos en Bóveda</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight">$8,450,290.00 <span class="text-primary text-title-md font-normal">USD</span></span>
+</div>
+<div class="flex items-center justify-between gap-2 pt-3 border-t border-outline-variant/20">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-label-code text-label-code text-on-surface-variant">Transferencia instantánea</span>
+</div>
+<span class="material-symbols-outlined text-primary text-base">check_circle</span>
+</div>
+</div>
+</div>
+<!-- Bento Item 3: API & Microservices Diagram Schematic -->
+<div class="lg:col-span-5 bg-surface-container rounded-2xl p-8 flex flex-col justify-between shadow-md">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-caps text-label-caps text-primary uppercase">Conectividad Crítica</span>
+<span class="material-symbols-outlined text-primary">hub</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Orquestador de APIs y Microservicios</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+            Interconexión de bases de datos legadas AS/400 con arquitecturas modernas en GraphQL y Kafka con tolerancia a fallas.
+          </p>
+</div>
+<div class="w-full bg-surface-container-lowest p-4 rounded-xl font-label-code text-label-code flex flex-col gap-2.5">
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-high text-on-surface">
+<span>[GATEWAY] Kong / Envoy Layer</span>
+<span class="text-primary font-bold">200 OK</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-high/60 text-on-surface-variant pl-6">
+<span>↳ [EVENT BUS] Kafka 3.6 Cluster</span>
+<span class="text-outline">Async Pub/Sub</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-high/60 text-on-surface-variant pl-10">
+<span>↳ [LEGACY] Core Banking Connector</span>
+<span class="text-primary">Synced 0.4s</span>
+</div>
+</div>
+</div>
+<!-- Bento Item 4: AI & Pipeline Processing -->
+<div class="lg:col-span-7 bg-surface-container rounded-2xl p-8 flex flex-col justify-between shadow-md">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-caps text-label-caps text-primary uppercase">Modelos de IA &amp; RAG Privado</span>
+<span class="material-symbols-outlined text-primary">psychology</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Automatización Inteligente en Infraestructura Propia</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+            Implementamos modelos de lenguaje fine-tuned ejecutándose en entornos dedicados on-premise o cloud segura, sin filtrar información confidencial a proveedores externos.
+          </p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+<div class="p-4 rounded-xl bg-surface-container-lowest flex flex-col gap-1">
+<span class="font-label-code text-label-code text-outline">Precisión RAG</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">99.4%</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Vectores Qdrant</span>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-lowest flex flex-col gap-1">
+<span class="font-label-code text-label-code text-outline">Ahorro en Procesamiento</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">68%</span>
+<span class="font-body-md text-body-md text-on-surface-variant">vs APIs públicas</span>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-lowest flex flex-col gap-1">
+<span class="font-label-code text-label-code text-outline">Cumplimiento Legal</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">GDPR / ISO</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Cero fuga de datos</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SERVICIOS DE DESARROLLO A LA MEDIDA -->
+<section class="w-full bg-surface-container-lowest/70 py-24" id="servicios">
+<div class="max-w-7xl mx-auto px-6 lg:px-12">
+<div class="max-w-2xl mb-16">
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase mb-3 block">Capacidades Centrales</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Ingeniería sin límites de catálogo ni plantillas prefabricadas.</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Construimos exactamente lo que tu modelo operativo requiere. Cuando el software comercial no da el ancho o cobra licencias abusivas por usuario, AppsCore crea tu propio activo tecnológico.
+        </p>
+</div>
+<!-- Services 6-Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-surface-container p-8 rounded-2xl shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
+<span class="material-symbols-outlined text-2xl">web</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-3">Plataformas Web y SaaS Propios</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+              Portales transaccionales de alto tráfico, motores de suscripción bespoke y paneles analíticos construidos con React, Next.js, FastAPI y bases PostgreSQL de particionado dinámico.
+            </p>
+</div>
+<div class="font-label-code text-label-code text-outline flex items-center gap-2 pt-4 border-t border-outline-variant/15">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>SSR / Edge Caching / Zero Latency</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container p-8 rounded-2xl shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
+<span class="material-symbols-outlined text-2xl">devices</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-3">Apps Móviles Nativas y Cross-Platform</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+              Experiencias móviles de nivel consumidor e industrial desarrolladas en Swift (iOS nativo), Kotlin (Android) y Flutter empresarial con sincronización offline-first y telemetría de campo.
+            </p>
+</div>
+<div class="font-label-code text-label-code text-outline flex items-center gap-2 pt-4 border-t border-outline-variant/15">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>Offline-First / Hardware Bluetooth / Biometría</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container p-8 rounded-2xl shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
+<span class="material-symbols-outlined text-2xl">corporate_fare</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-3">Sistemas Empresariales y ERPs a Medida</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+              Digitalización integral de compras, inventario multialmacén, facturación fiscal automática y CRM adaptado con precisión milimétrica a tus flujos internos, sin licencias mensuales por asiento.
+            </p>
+</div>
+<div class="font-label-code text-label-code text-outline flex items-center gap-2 pt-4 border-t border-outline-variant/15">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>Cero cobro por usuario / 100% Personalizado</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container p-8 rounded-2xl shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
+<span class="material-symbols-outlined text-2xl">cloud_sync</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-3">Modernización y Migración Cloud</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+              Desmantelamiento gradual y sin interrupciones operativas (Strangler Fig Pattern) de monolitos antiguos hacia microservicios en Kubernetes en AWS, Google Cloud o Azure.
+            </p>
+</div>
+<div class="font-label-code text-label-code text-outline flex items-center gap-2 pt-4 border-t border-outline-variant/15">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>Zero-Downtime Migration / Kubernetes</span>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-container p-8 rounded-2xl shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
+<span class="material-symbols-outlined text-2xl">cable</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-3">APIs e Integraciones Críticas</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+              Pasarelas de pagos multinacionales (Stripe, Adyen, SPEI), conexión con sistemas gubernamentales, periféricos industriales, sensores IoT y hubs bancarios con reconciliación auditada.
+            </p>
+</div>
+<div class="font-label-code text-label-code text-outline flex items-center gap-2 pt-4 border-t border-outline-variant/15">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>Webhook Queuing / Idempotencia Estricta</span>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="bg-surface-container p-8 rounded-2xl shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
+<span class="material-symbols-outlined text-2xl">smart_toy</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-3">Inteligencia Artificial y Automatización</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+              Despliegue de modelos de embeddings locales, procesamiento masivo de contratos y documentos con OCR avanzado, e hiper-automatización de tareas humanas repetitivas mediante agentes deterministas.
+            </p>
+</div>
+<div class="font-label-code text-label-code text-outline flex items-center gap-2 pt-4 border-t border-outline-variant/15">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>RAG Empresarial / LLMs On-Prem / Cero Leak</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- METODOLOGÍA TRANSPARENTE (ROADMAP DE 4 PASOS) -->
+<section class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-24" id="metodologia">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+<div>
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase mb-2 block">Cero Incertidumbre</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Nuestra metodología de ingeniería comprobada.</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+        Entregas tangibles cada 14 días. Sin cajas negras ni sorpresas presupuestarias de última hora.
+      </p>
+</div>
+<!-- Step Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Step 01 -->
+<div class="bg-surface-container p-7 rounded-2xl shadow-sm flex flex-col justify-between relative group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between mb-8">
+<span class="font-headline-md text-headline-md text-primary font-bold">01</span>
+<span class="material-symbols-outlined text-outline">search</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Discovery y Arquitectura</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Inmersión técnica profunda. Auditamos flujos de datos, diseñamos el esquema relacional, definimos SLAs y prototipamos antes de escribir una sola línea de código en producción.
+          </p>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/20 font-label-code text-label-code text-primary">
+          Entregable: Blueprints &amp; SRS
+        </div>
+</div>
+<!-- Step 02 -->
+<div class="bg-surface-container p-7 rounded-2xl shadow-sm flex flex-col justify-between relative group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between mb-8">
+<span class="font-headline-md text-headline-md text-primary font-bold">02</span>
+<span class="material-symbols-outlined text-outline">bolt</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Sprints &amp; Demos Quincenales</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Desarrollo modular en sprints ágiles. Cada dos semanas tienes una demo funcional interactiva en un entorno de Staging seguro para validar avances con tu equipo directivo.
+          </p>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/20 font-label-code text-label-code text-primary">
+          Entregable: Staging Builds Vivos
+        </div>
+</div>
+<!-- Step 03 -->
+<div class="bg-surface-container p-7 rounded-2xl shadow-sm flex flex-col justify-between relative group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between mb-8">
+<span class="font-headline-md text-headline-md text-primary font-bold">03</span>
+<span class="material-symbols-outlined text-outline">security</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">QA, Carga y Auditoría</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Batería de pruebas automatizadas E2E, benchmarks de estrés simulando picos masivos de usuarios y auditorías estáticas de vulnerabilidad (OWASP Top 10 y cifrado AES-256).
+          </p>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/20 font-label-code text-label-code text-primary">
+          Entregable: Reporte DevSecOps
+        </div>
+</div>
+<!-- Step 04 -->
+<div class="bg-surface-container p-7 rounded-2xl shadow-sm flex flex-col justify-between relative group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between mb-8">
+<span class="font-headline-md text-headline-md text-primary font-bold">04</span>
+<span class="material-symbols-outlined text-outline">handshake</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Despliegue y Transferencia</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Publicación en tus nubes y tiendas de aplicaciones. Traspaso completo de repositorios Git, pipelines CI/CD documentados, sesiones de onboarding y soporte técnico continuo con SLA.
+          </p>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/20 font-label-code text-label-code text-primary">
+          Entregable: 100% IP y Repositorios
+        </div>
+</div>
+</div>
+</section>
+<!-- ESTIMADOR INTERACTIVO Y MODELOS DE CONTRATACIÓN -->
+<section class="w-full bg-surface-container-lowest/80 py-24" id="estimador">
+<div class="max-w-7xl mx-auto px-6 lg:px-12">
+<div class="text-center max-w-3xl mx-auto mb-16">
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase mb-3 block">Modelos de Inversión y Alcance</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">¿Cómo estructuramos tu proyecto?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Sin tarifas ocultas ni esquemas SaaS rígidos. Te ofrecemos predictibilidad presupuestaria total ajustada a la escala de tu reto técnico.
+        </p>
+</div>
+<!-- Interactive Scope Configuration Panel -->
+<div class="bg-surface-container rounded-2xl p-8 lg:p-12 mb-16 shadow-xl">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary text-2xl">tune</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Configurador de Requisitos Rápidos</h3>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Step 1: Type selection -->
+<div class="flex flex-col gap-3">
+<label class="font-label-caps text-label-caps text-outline uppercase tracking-wider">1. Tipo de Solución</label>
+<div class="flex flex-col gap-2" id="scope-selector">
+<button class="w-full text-left p-3.5 rounded-xl bg-surface-container-high border-l-4 border-primary text-on-surface font-title-md text-title-md flex justify-between items-center transition-all" type="button">
+<span>Nueva Plataforma Web / SaaS</span>
+<span class="material-symbols-outlined text-primary text-sm">check</span>
+</button>
+<button class="w-full text-left p-3.5 rounded-xl bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-title-md text-title-md flex justify-between items-center transition-all" type="button">
+<span>App Móvil (iOS &amp; Android)</span>
+</button>
+<button class="w-full text-left p-3.5 rounded-xl bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-title-md text-title-md flex justify-between items-center transition-all" type="button">
+<span>ERP / Sistema Interno a Medida</span>
+</button>
+<button class="w-full text-left p-3.5 rounded-xl bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-title-md text-title-md flex justify-between items-center transition-all" type="button">
+<span>Modernización de Sistema Legacy</span>
+</button>
+</div>
+</div>
+<!-- Step 2: Complexity & Scale -->
+<div class="flex flex-col gap-3">
+<label class="font-label-caps text-label-caps text-outline uppercase tracking-wider">2. Magnitud e Integraciones</label>
+<div class="flex flex-col gap-2">
+<div class="p-4 rounded-xl bg-surface-container-lowest flex flex-col gap-3">
+<div class="flex justify-between items-center font-body-md text-body-md text-on-surface">
+<span>Complejidad de Integraciones</span>
+<span class="text-primary font-label-code text-label-code" id="slider-val">Alta (APIs + Core)</span>
+</div>
+<input class="w-full accent-[#aff331] cursor-pointer" max="3" min="1" type="range" value="3"/>
+<span class="font-label-code text-label-code text-outline">Incluye pagos, CRM y bases existentes</span>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-lowest flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface">¿Requiere IA o Machine Learning?</span>
+<span class="font-label-code text-label-code text-outline">RAGs o automatización de flujos</span>
+</div>
+<input checked="" class="w-5 h-5 rounded accent-[#aff331] cursor-pointer" type="checkbox"/>
+</div>
+</div>
+</div>
+<!-- Step 3: Estimated Delivery Output -->
+<div class="flex flex-col justify-between bg-surface-container-lowest p-6 rounded-xl border border-primary/20">
+<div>
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-widest block mb-2">Diagnóstico Estimado</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-2">Sprint Arquitectónico Inicial</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">
+                Plazo típico de primer MVP en Staging: <strong class="text-on-surface">6 a 10 semanas</strong> con un equipo senior asignado.
+              </p>
+<div class="space-y-2 font-label-code text-label-code text-outline mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">verified</span>
+<span>NDA firmado previo a detalles</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">verified</span>
+<span>Código 100% cedido a tu empresa</span>
+</div>
+</div>
+</div>
+<a class="w-full inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-primary text-on-primary font-title-md text-title-md font-semibold tracking-tight hover:bg-primary-fixed transition-all" href="#contacto">
+<span>Recibir Propuesta de Arquitectura</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Contratación Models 3-Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Model 1 -->
+<div class="bg-surface-container p-8 rounded-2xl shadow-sm flex flex-col justify-between hover:border hover:border-outline-variant/30 transition-all">
+<div>
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider block mb-2">Modelo 01</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Proyecto Llave en Mano</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+              Para proyectos con requerimientos definidos. Alcance claro, presupuesto garantizado sin desviaciones y cronograma con entregas calendarizadas.
+            </p>
+<ul class="space-y-3 font-body-md text-body-md text-on-surface-variant mb-8">
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span>Precio fijo garantizado</span>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span>Hitos vinculados a entregables</span>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span>Garantía de corrección 90 días</span>
+</li>
+</ul>
+</div>
+<a class="w-full py-2.5 px-4 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-center font-title-md text-title-md text-on-surface font-medium transition-colors" href="#contacto">
+            Consultar Llave en Mano
+          </a>
+</div>
+<!-- Model 2 (Highlighted) -->
+<div class="bg-surface-container-high p-8 rounded-2xl shadow-xl flex flex-col justify-between relative border border-primary/30">
+<div class="absolute -top-3.5 right-6 px-3 py-1 rounded-full bg-primary text-on-primary font-label-code text-label-code font-bold">
+            MÁS SOLICITADO
+          </div>
+<div>
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider block mb-2">Modelo 02</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Célula Dedicada (Squad)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+              Ingenieros senior y lead architect full-time integrados en tu equipo y sincronizados con tus prioridades. Flexibilidad total de backlog y escalabilidad rápida.
+            </p>
+<ul class="space-y-3 font-body-md text-body-md text-on-surface mb-8">
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span>Developers Senior vetted al 100%</span>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span>Gestión ágil e integración directa en Slack/Jira</span>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span>Alineación de zona horaria completa</span>
+</li>
+</ul>
+</div>
+<a class="w-full py-3 px-4 rounded-xl bg-primary hover:bg-primary-fixed text-center font-title-md text-title-md text-on-primary font-semibold transition-all" href="#contacto">
+            Solicitar Squad a Medida
+          </a>
+</div>
+<!-- Model 3 -->
+<div class="bg-surface-container p-8 rounded-2xl shadow-sm flex flex-col justify-between hover:border hover:border-outline-variant/30 transition-all">
+<div>
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider block mb-2">Modelo 03</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Consultoría &amp; Rescate</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+              Para aplicaciones con cuellos de botella severos, bugs recurrentes o proyectos abandonados por otros proveedores que necesitan estabilidad urgente.
+            </p>
+<ul class="space-y-3 font-body-md text-body-md text-on-surface-variant mb-8">
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span>Auditoría de código y seguridad</span>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span>Optimización de consultas SQL / NoSQL</span>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span>Plan de remediación arquitectónica</span>
+</li>
+</ul>
+</div>
+<a class="w-full py-2.5 px-4 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-center font-title-md text-title-md text-on-surface font-medium transition-colors" href="#contacto">
+            Auditar Sistema Existente
+          </a>
+</div>
+</div>
+<!-- Trust NDA banner -->
+<div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left py-4 px-6 rounded-full bg-surface-container-high/40 max-w-2xl mx-auto">
+<span class="material-symbols-outlined text-primary text-2xl">verified_user</span>
+<span class="font-body-md text-body-md text-on-surface-variant">
+          Todas nuestras interacciones iniciales se respaldan con un <strong class="text-on-surface">Acuerdo de Confidencialidad (NDA)</strong> antes de compartir código o especificaciones.
+        </span>
+</div>
+</div>
+</section>
+<!-- TESTIMONIOS Y PRUEBA SOCIAL DE LÍDERES TÉCNICOS -->
+<section class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-24">
+<div class="max-w-2xl mb-16">
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase mb-3 block">Prueba Social &amp; Respaldos</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Lo que dicen CTOs y Directores de Tecnología.</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Testimonial 1 -->
+<div class="bg-surface-container p-8 rounded-2xl shadow-sm flex flex-col justify-between">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant italic leading-relaxed">
+            “AppsCore rediseñó por completo nuestra arquitectura transaccional de pagos. Pasamos de caídas constantes en Black Friday a soportar más de 35,000 pedidos concurrentes con latencia menor a 40ms. Su rigor técnico es incomparable.”
+          </p>
+</div>
+<div class="mt-8 pt-4 border-t border-outline-variant/20 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-primary">
+            MA
+          </div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface font-semibold">Mauricio Arango</span>
+<span class="font-label-code text-label-code text-outline">CTO · LogiFin Global</span>
+</div>
+</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="bg-surface-container p-8 rounded-2xl shadow-sm flex flex-col justify-between">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant italic leading-relaxed">
+            “La diferencia clave con otras agencias es que AppsCore no te vende humo ni plantillas prefabricadas. Construyeron nuestro ERP industrial a la medida, adaptado a 4 plantas de manufactura, y la propiedad del código nos dio independencia total.”
+          </p>
+</div>
+<div class="mt-8 pt-4 border-t border-outline-variant/20 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-primary">
+            CV
+          </div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface font-semibold">Claudia Valenzuela</span>
+<span class="font-label-code text-label-code text-outline">Directora de Operaciones · Grupo Industrial Mex</span>
+</div>
+</div>
+</div>
+<!-- Testimonial 3 -->
+<div class="bg-surface-container p-8 rounded-2xl shadow-sm flex flex-col justify-between">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant italic leading-relaxed">
+            “El squad que nos asignaron se sintió como una extensión inmediata de nuestro equipo core de ingeniería. La calidad de documentación, los tests unitarios y la claridad en los pull requests establecieron un nuevo estándar para nosotros.”
+          </p>
+</div>
+<div class="mt-8 pt-4 border-t border-outline-variant/20 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-primary">
+            SS
+          </div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface font-semibold">Sergio Silvestre</span>
+<span class="font-label-code text-label-code text-outline">VP of Engineering · Credix Health</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA FINAL DE CONVERSIÓN CON FORMULARIO EXPRESS -->
+<section class="w-full bg-surface-container-lowest py-24 relative overflow-hidden" id="contacto">
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-primary/10 rounded-full blur-[160px] pointer-events-none"></div>
+<div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+<div class="bg-surface-container rounded-3xl p-8 lg:p-16 shadow-2xl border border-primary/20">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- CTA Text Block -->
+<div class="lg:col-span-6 flex flex-col gap-6">
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase">Inicia tu Proyecto</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">
+              ¿Listo para digitalizar tu ventaja competitiva?
+            </h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              Agenda una sesión de consulta de 30 minutos directamente con uno de nuestros Arquitectos de Software Senior. Evaluaremos la viabilidad de tu proyecto, stack sugerido y estimación sin compromiso.
+            </p>
+<div class="space-y-4 pt-2">
+<div class="flex items-center gap-3 text-on-surface">
+<span class="material-symbols-outlined text-primary text-xl">timer</span>
+<span class="font-body-md text-body-md">Respuesta técnica garantizada en menos de 4 horas hábiles</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface">
+<span class="material-symbols-outlined text-primary text-xl">shield</span>
+<span class="font-body-md text-body-md">Acuerdo de Confidencialidad (NDA) automático previo al call</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface">
+<span class="material-symbols-outlined text-primary text-xl">developer_board</span>
+<span class="font-body-md text-body-md">Sin ejecutivos comerciales: hablas directo con ingenieros</span>
+</div>
+</div>
+</div>
+<!-- Express Lead Form -->
+<div class="lg:col-span-6 bg-surface-container-lowest p-8 rounded-2xl shadow-xl border border-outline-variant/30">
+<form class="flex flex-col gap-4" onsubmit="event.preventDefault(); alert('¡Gracias! Un Arquitecto de Software de AppsCore te contactará en breve con el NDA y la propuesta de sesión.');">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-caps text-label-caps text-outline uppercase">Tu Nombre</label>
+<input class="w-full px-4 py-3 rounded-xl bg-surface-container text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary border border-outline-variant/20" placeholder="Carlos Mendoza" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-caps text-label-caps text-outline uppercase">Correo Corporativo</label>
+<input class="w-full px-4 py-3 rounded-xl bg-surface-container text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary border border-outline-variant/20" placeholder="carlos@tuempresa.com" required="" type="email"/>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-caps text-label-caps text-outline uppercase">Empresa / Organización</label>
+<input class="w-full px-4 py-3 rounded-xl bg-surface-container text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary border border-outline-variant/20" placeholder="Acme Logistics" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-caps text-label-caps text-outline uppercase">Tipo de Requerimiento</label>
+<select class="w-full px-4 py-3 rounded-xl bg-surface-container text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary border border-outline-variant/20">
+<option>Nuevo Software a Medida</option>
+<option>Célula de Ingeniería Dedicada</option>
+<option>Modernización de Sistema Legacy</option>
+<option>Auditoría / Rescate Técnico</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-caps text-label-caps text-outline uppercase">Resumen del Proyecto</label>
+<textarea class="w-full px-4 py-3 rounded-xl bg-surface-container text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary border border-outline-variant/20" placeholder="Describe brevemente el alcance técnico, objetivos y fecha estimada de inicio..." rows="3"></textarea>
+</div>
+<button class="w-full py-4 mt-2 rounded-xl bg-primary text-on-primary font-title-md text-title-md font-semibold tracking-tight shadow-lg shadow-primary/20 hover:bg-primary-fixed hover:shadow-primary/35 transition-all flex items-center justify-center gap-2" type="submit">
+<span>Solicitar Sesión Técnica y NDA</span>
+<span class="material-symbols-outlined text-lg">calendar_today</span>
+</button>
+<span class="font-label-code text-label-code text-outline text-center">
+                Tus datos están protegidos bajo protocolos estrictos de secreto industrial.
+              </span>
+</form>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<script>
+  // Simple micro-interaction for scope buttons
+  document.querySelectorAll('#scope-selector button').forEach(button => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('#scope-selector button').forEach(b => {
+        b.classList.remove('bg-surface-container-high', 'border-l-4', 'border-primary', 'text-on-surface');
+        b.classList.add('bg-surface-container-lowest', 'text-on-surface-variant');
+        const icon = b.querySelector('.material-symbols-outlined');
+        if (icon) icon.remove();
+      });
+      button.classList.remove('bg-surface-container-lowest', 'text-on-surface-variant');
+      button.classList.add('bg-surface-container-high', 'border-l-4', 'border-primary', 'text-on-surface');
+      const checkIcon = document.createElement('span');
+      checkIcon.className = 'material-symbols-outlined text-primary text-sm';
+      checkIcon.innerText = 'check';
+      button.appendChild(checkIcon);
+    });
+  });
+</script></main><footer class="w-full bg-surface-container-lowest border-t border-outline-variant/20 pt-16 pb-12"><div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12"><div class="lg:col-span-4 flex flex-col gap-5"><div class="flex items-center gap-3"><img alt="AppsCore Logo" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VmznzS3SzHHfemOKMNsndUeZf_F7LfQ0dgPIGPTmKCjvN4YfbRLjACScuyFqJ4WLEcvBj00AApfo1l9NCoIY93HWEYtpL5JHWG8H-28HBmKOfRSN_CcTv9oUglE41qYVdJi2fYAJvbacAysGbFcvkkUiSLegnqI-RDhZmckghAr2o3SYlySdOLbd3BtoQkaErHq8nYD0jRApgIVsYqf3xrUcvaCHKm4kxzw8jtgGRcE97IfudD1vO7djQimxXTpNMd4NkZfO6ZLw"/><span class="font-headline-sm text-headline-sm tracking-tight text-on-surface">AppsCore</span></div><p class="font-body-md text-body-md text-on-surface-variant max-w-sm">Diseñamos y programamos software a la medida para líderes de la industria. Ingeniería de software bespoke con rigor arquitectónico para scaleups y corporativos.</p><div class="flex items-center gap-2 text-primary font-label-code text-label-code"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>Infraestructura Activa &amp; Calidad ISO-Grade</div></div><div class="lg:col-span-3 flex flex-col gap-4"><h4 class="font-label-caps text-label-caps text-primary tracking-widest uppercase">Servicios Bespoke</h4><ul class="flex flex-col gap-2.5 font-body-md text-body-md text-on-surface-variant"><li class="hover:text-on-surface transition-colors cursor-pointer">Plataformas Web a Medida</li><li class="hover:text-on-surface transition-colors cursor-pointer">Apps Móviles iOS &amp; Android</li><li class="hover:text-on-surface transition-colors cursor-pointer">Arquitecturas Cloud &amp; APIs</li><li class="hover:text-on-surface transition-colors cursor-pointer">Software Empresarial ERP/CRM</li><li class="hover:text-on-surface transition-colors cursor-pointer">Modernización de Sistemas Legados</li></ul></div><div class="lg:col-span-3 flex flex-col gap-4"><h4 class="font-label-caps text-label-caps text-primary tracking-widest uppercase">Enfoque &amp; Calidad</h4><ul class="flex flex-col gap-2.5 font-body-md text-body-md text-on-surface-variant"><li class="flex items-center gap-2"><span class="material-symbols-outlined text-base text-primary">verified_user</span><span>NDA &amp; IP 100% de tu Empresa</span></li><li class="flex items-center gap-2"><span class="material-symbols-outlined text-base text-primary">code_blocks</span><span>Código Limpio &amp; Arquitectura Escala</span></li><li class="flex items-center gap-2"><span class="material-symbols-outlined text-base text-primary">security</span><span>DevSecOps &amp; Telemetría Continua</span></li><li class="flex items-center gap-2"><span class="material-symbols-outlined text-base text-primary">speed</span><span>High-Throughput Performance</span></li></ul></div><div class="lg:col-span-2 flex flex-col gap-4"><h4 class="font-label-caps text-label-caps text-primary tracking-widest uppercase">Contacto Global</h4><div class="flex flex-col gap-2.5 font-body-md text-body-md text-on-surface-variant"><span>contacto@appscore.io</span><span>Consultoría Técnica Bespoke</span><span class="font-label-code text-label-code text-outline">SLA: Respuesta &lt; 4h</span></div></div></div><div class="max-w-7xl mx-auto px-6 lg:px-12 mt-12 pt-8 border-t border-outline-variant/10 flex flex-col sm:flex-row items-center justify-between gap-4 font-body-md text-body-md text-outline"><p>© 2025 AppsCore Software Engineering. Todos los derechos reservados.</p><div class="flex items-center gap-6 font-label-code text-label-code"><span>Privacidad &amp; NDA</span><span>Seguridad de Datos</span><span>Términos de Servicio</span></div></div></footer></body></html>
