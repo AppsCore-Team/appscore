@@ -22,10 +22,10 @@ export function Contact() {
 
     // emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
     emailjs.sendForm(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_id_here',
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_id_here',
+      import.meta.env.EMAILJS_SERVICE_ID || 'service_id_here',
+      import.meta.env.EMAILJS_TEMPLATE_ID || 'template_id_here',
       form.current,
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'public_key_here'
+      import.meta.env.EMAILJS_PUBLIC_KEY || 'public_key_here'
     )
       .then((result) => {
           setLoading(false);
