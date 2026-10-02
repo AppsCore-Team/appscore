@@ -33,7 +33,7 @@ export function Header() {
             onClick={toggleMenu}
             aria-label="Toggle menu"
           >
-            <span className="material-symbols-outlined text-2xl">
+            <span translate="no" className="material-symbols-outlined text-2xl">
               {isMobileMenuOpen ? 'close' : 'menu'}
             </span>
           </button>

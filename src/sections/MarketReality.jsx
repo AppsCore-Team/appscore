@@ -28,20 +28,20 @@ export function MarketReality() {
           <motion.div {...fadeInUp} transition={{ duration: 0.6, delay: 0.1 }} className="rounded-3xl p-8 md:p-10 bg-carbon-850/60 border border-red-500/20 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-3 mb-6 text-red-400">
-                <span className="material-symbols-outlined text-2xl">sentiment_dissatisfied</span>
+                <span translate="no" className="material-symbols-outlined text-2xl">sentiment_dissatisfied</span>
                 <h3 className="font-display font-semibold text-xl text-white">Las frustraciones comunes</h3>
               </div>
               <ul className="space-y-5 text-sm md:text-base text-slate-300">
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-red-400/90 text-xl shrink-0 mt-0.5">cancel</span>
+                  <span translate="no" className="material-symbols-outlined text-red-400/90 text-xl shrink-0 mt-0.5">cancel</span>
                   <span><strong>Presupuestos que se duplican sin aviso:</strong> Empiezan con un precio accesible y terminan cobrando extras por cualquier ajuste elemental.</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-red-400/90 text-xl shrink-0 mt-0.5">cancel</span>
+                  <span translate="no" className="material-symbols-outlined text-red-400/90 text-xl shrink-0 mt-0.5">cancel</span>
                   <span><strong>Semanas de silencio y cajas negras:</strong> No sabes qué están construyendo hasta que es demasiado tarde para corregir el rumbo.</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-red-400/90 text-xl shrink-0 mt-0.5">cancel</span>
+                  <span translate="no" className="material-symbols-outlined text-red-400/90 text-xl shrink-0 mt-0.5">cancel</span>
                   <span><strong>Código rehén y letra pequeña:</strong> Quedas atrapado pagando licencias mensuales abusivas o dependiendo de ellos de por vida.</span>
                 </li>
               </ul>
@@ -57,20 +57,20 @@ export function MarketReality() {
             </div>
             <div>
               <div className="flex items-center gap-3 mb-6 text-brand">
-                <span className="material-symbols-outlined text-2xl">verified</span>
+                <span translate="no" className="material-symbols-outlined text-2xl">verified</span>
                 <h3 className="font-display font-semibold text-xl text-white">La tranquilidad con AppsCore</h3>
               </div>
               <ul className="space-y-5 text-sm md:text-base text-slate-200">
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-brand text-xl shrink-0 mt-0.5">check_circle</span>
+                  <span translate="no" className="material-symbols-outlined text-brand text-xl shrink-0 mt-0.5">check_circle</span>
                   <span><strong>Claridad y presupuesto cerrado:</strong> Definimos con exactitud lo que se construirá y cuánto costará. Sin cargos ocultos ni letras pequeñas.</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-brand text-xl shrink-0 mt-0.5">check_circle</span>
+                  <span translate="no" className="material-symbols-outlined text-brand text-xl shrink-0 mt-0.5">check_circle</span>
                   <span><strong>Entregas visibles cada 14 días:</strong> Puedes interactuar con los avances de tu producto paso a paso y ajustar prioridades con calma.</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-brand text-xl shrink-0 mt-0.5">check_circle</span>
+                  <span translate="no" className="material-symbols-outlined text-brand text-xl shrink-0 mt-0.5">check_circle</span>
                   <span><strong>Propiedad 100% tuya:</strong> El código, las bases de datos y la arquitectura son un activo exclusivo de tu empresa desde el primer día.</span>
                 </li>
               </ul>

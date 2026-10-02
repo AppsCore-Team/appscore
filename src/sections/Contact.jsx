@@ -55,15 +55,15 @@ export function Contact() {
             </p>
             <div className="space-y-4 text-xs sm:text-sm text-slate-300">
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-brand text-lg">schedule</span>
+                <span translate="no" className="material-symbols-outlined text-brand text-lg">schedule</span>
                 <span>Respuesta garantizada en menos de 24 horas</span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-brand text-lg">shield</span>
+                <span translate="no" className="material-symbols-outlined text-brand text-lg">shield</span>
                 <span>Confidencialidad total bajo NDA</span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-brand text-lg">forum</span>
+                <span translate="no" className="material-symbols-outlined text-brand text-lg">forum</span>
                 <span>Conversación directa con ingenieros líderes, sin vendedores</span>
               </div>
             </div>
@@ -73,7 +73,7 @@ export function Contact() {
             {success ? (
               <div className="text-center py-10">
                 <div className="w-16 h-16 rounded-full bg-brand/20 flex items-center justify-center mx-auto mb-4">
-                  <span className="material-symbols-outlined text-brand text-3xl">check_circle</span>
+                  <span translate="no" className="material-symbols-outlined text-brand text-3xl">check_circle</span>
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">¡Gracias por escribirnos!</h3>
                 <p className="text-slate-400">Revisaremos los detalles de tu proyecto y nos pondremos en contacto contigo en breve con una propuesta clara.</p>
@@ -113,7 +113,7 @@ export function Contact() {
                 </div>
                 <Button type="submit" variant="primary" disabled={loading} className={`w-full py-4 gap-2 text-sm tracking-wide shadow-lg ${loading ? 'opacity-70' : 'shadow-brand/20'}`}>
                   <span>{loading ? 'Enviando...' : 'Solicitar diagnóstico gratuito'}</span>
-                  <span className="material-symbols-outlined text-lg">{loading ? 'hourglass_top' : 'send'}</span>
+                  <span translate="no" className="material-symbols-outlined text-lg">{loading ? 'hourglass_top' : 'send'}</span>
                 </Button>
                 <p className="text-center text-xs text-slate-400">
                   Sin spam ni presiones. Respetamos tu tiempo y tus datos.

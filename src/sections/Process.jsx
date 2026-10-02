@@ -68,7 +68,7 @@ export function Process() {
 
         <motion.div {...fadeInUp} className="mt-16 p-6 rounded-2xl bg-carbon-850 border border-carbon-border flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <div className="flex items-center gap-3">
-            <span className="material-symbols-outlined text-brand text-2xl">lock</span>
+            <span translate="no" className="material-symbols-outlined text-brand text-2xl">lock</span>
             <span className="text-sm text-slate-300">
               Firmamos un <strong>Acuerdo de Confidencialidad (NDA)</strong> antes de conocer tus ideas y procesos internos.
             </span>
