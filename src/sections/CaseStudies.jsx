@@ -49,13 +49,16 @@ export function CaseStudies() {
                     <span className="px-3 py-1.5 rounded-lg bg-carbon-700">100% adopción por los choferes</span>
                   </div>
                 </div>
-                <div className="lg:col-span-5 bg-carbon-900 rounded-2xl p-6 border border-carbon-border/60 flex flex-col justify-center">
-                  <span className="text-xs uppercase text-slate-400 tracking-wider mb-2">Impacto Directo</span>
-                  <div className="text-4xl sm:text-5xl font-display font-extrabold text-brand mb-2">-70%</div>
-                  <div className="text-sm font-semibold text-white mb-1">Menos tiempo en cada entrega</div>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    "El equipo no necesitó semanas de capacitación. AppsCore diseñó la herramienta con tanta sencillez que empezamos a usarla al instante."
-                  </p>
+                <div className="lg:col-span-5 bg-carbon-900 rounded-2xl p-6 border border-carbon-border/60 flex flex-col justify-center relative overflow-hidden min-h-[220px]">
+                  <div className="pr-24 sm:pr-28">
+                    <span className="text-xs uppercase text-slate-400 tracking-wider mb-2 block">Impacto Directo</span>
+                    <div className="text-4xl sm:text-5xl font-display font-extrabold text-brand mb-2">-70%</div>
+                    <div className="text-sm font-semibold text-white mb-1">Menos tiempo en cada entrega</div>
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      "El equipo no necesitó semanas de capacitación. AppsCore diseñó la herramienta con tanta sencillez que empezamos a usarla al instante."
+                    </p>
+                  </div>
+                  <img alt="Gimi pulgares arriba" className="absolute -right-2 bottom-2 w-28 sm:w-36 h-auto object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeXQglpMDvgaKDOCY6fIJgHdnJ32cm1mJKEMsfXqiko6eEHjF5zrNJM1j3Dece9K4QzYzK0PgKNV6iqiVinfIlpCz7sRdj68aH7zh39gnOm6xdpPD_xTB5TP5Ox_HOSasBD52F1Wh7BOSGiKtrqWdBCVrqFnsaT3bVqRiS90ZcV_YWwcTIwhMhAuTYxvfi208axxAmTZ_QQ30h3ACRTyiVboAvMahL4aPvJrq7p6n_Gr5xB1kW1F2VHwF7hVjit6-d7Q" />
                 </div>
               </div>
             </Card>
@@ -82,13 +85,16 @@ export function CaseStudies() {
                     <span className="px-3 py-1.5 rounded-lg bg-carbon-700">Ronda de capital cerrada</span>
                   </div>
                 </div>
-                <div className="lg:col-span-5 bg-carbon-900 rounded-2xl p-6 border border-carbon-border/60 flex flex-col justify-center">
-                  <span className="text-xs uppercase text-slate-400 tracking-wider mb-2">Impacto Directo</span>
-                  <div className="text-4xl sm:text-5xl font-display font-extrabold text-white mb-2">8 Semanas</div>
-                  <div className="text-sm font-semibold text-white mb-1">De la idea al primer usuario real</div>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    "Nos ayudaron a filtrar lo que no era indispensable para el lanzamiento, ahorrándonos miles de dólares y meses de incertidumbre."
-                  </p>
+                <div className="lg:col-span-5 bg-carbon-900 rounded-2xl p-6 border border-carbon-border/60 flex flex-col justify-center relative overflow-hidden min-h-[220px]">
+                  <div className="pr-28 sm:pr-32">
+                    <span className="text-xs uppercase text-slate-400 tracking-wider mb-2 block">Impacto Directo</span>
+                    <div className="text-4xl sm:text-5xl font-display font-extrabold text-brand mb-2">8 Semanas</div>
+                    <div className="text-sm font-semibold text-white mb-1">De la idea al primer usuario real</div>
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      "Nos ayudaron a filtrar lo que no era indispensable para el lanzamiento, ahorrándonos miles de dólares y meses de incertidumbre."
+                    </p>
+                  </div>
+                  <img alt="Gimi con reloj" className="absolute -right-3 -bottom-2 w-32 sm:w-40 h-auto object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnJcDeRTFm8JuH4-9J_EDfhjDvybY9IzHcnefkVJXjcBYPcXkt6q3bxRPpDVfLDMSMJP-0AeIgUvU_2b-iuphgV8RK1kJC909LoXtut-bryQX3ll7vlyFTKjknU6PvuSR7Lzbia8kfyzFg-oLuPycAEmznHIjzTFshPCv3bsSW0bY0k0xVhaI-UrgUJ4T2Wfw5LvPaCQQV8V-B55Zw7wo-0J9-C_mRV9sk1aG78oxjSZPS14UmxGNmGc_peKbz_Jmxxw" />
                 </div>
               </div>
             </Card>
@@ -115,13 +121,16 @@ export function CaseStudies() {
                     <span className="px-3 py-1.5 rounded-lg bg-carbon-700">Costos de soporte -50%</span>
                   </div>
                 </div>
-                <div className="lg:col-span-5 bg-carbon-900 rounded-2xl p-6 border border-carbon-border/60 flex flex-col justify-center">
-                  <span className="text-xs uppercase text-slate-400 tracking-wider mb-2">Impacto Directo</span>
-                  <div className="text-4xl sm:text-5xl font-display font-extrabold text-brand mb-2">0 Caídas</div>
-                  <div className="text-sm font-semibold text-white mb-1">Continuidad del negocio garantizada</div>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    "Era el mayor temor de nuestro comité directivo. El equipo de AppsCore ejecutó la migración sin que ningún cliente notara una pausa."
-                  </p>
+                <div className="lg:col-span-5 bg-carbon-900 rounded-2xl p-6 border border-carbon-border/60 flex flex-col justify-center relative overflow-hidden min-h-[220px]">
+                  <div className="pr-28 sm:pr-32">
+                    <span className="text-xs uppercase text-slate-400 tracking-wider mb-2 block">Impacto Directo</span>
+                    <div className="text-4xl sm:text-5xl font-display font-extrabold text-brand mb-2">0 Caídas</div>
+                    <div className="text-sm font-semibold text-white mb-1">Continuidad del negocio garantizada</div>
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      "Era el mayor temor de nuestro comité directivo. El equipo de AppsCore ejecutó la migración sin que ningún cliente notara una pausa."
+                    </p>
+                  </div>
+                  <img alt="Gimi descansado" className="absolute -right-3 -bottom-3 w-32 sm:w-36 h-auto object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFRW1rqckLOfJKcoYMbLPWmO2OQLCHB0DEcfI_8rR7rR0P6_CZh9CQVvVS17TySG8o0qjTj1D78okbHcBgjNO68rDegbr-0N6R9ylrqp9fnVxAALLns8P1X33kBzIAotj16zdjnMUiKen9iXWDqvGnRvIt6Wo2YVCrUGwsxH2f1oh1sArK8roaeTzaAArtLgUw-UB7PDdwAXHi2SogOEAuu3nE-QkwcvnXp2QDur41fJau6IxUyHaRc716TQ6aZjFXGw" />
                 </div>
               </div>
             </Card>

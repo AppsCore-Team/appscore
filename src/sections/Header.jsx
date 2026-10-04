@@ -11,7 +11,7 @@ export function Header() {
     <header className="fixed top-0 inset-x-0 z-50 transition-all duration-300 backdrop-blur-xl bg-[#0D0F13]/85 border-b border-carbon-border/60">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
         <a className="flex items-center gap-3 group transition-transform hover:opacity-95" href="#" onClick={closeMenu}>
-          <img alt="AppsCore Software a la Medida" className="h-10 md:h-12 w-auto object-contain" src="/logo.png" />
+          <img alt="AppsCore Software a la Medida" className="h-8 md:h-9 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwa5JZnduCGEd1Ltcy_WxIGfZlw3AiJ4S67_74KFl37K5zIFGPC3i7E0yJt4q50tkGPBTylThZnNYUfZV6IyAaLu9Mp5sMgOgwbyVCAsreM-UmPMYQY4exSVMyVmNpF_zT_QGMTc0JYXwGRspjKzH3wlSKkCCnENYYXEl3Zb0ukmzC-m3JyfNPysqVKwfzzlxVW7jBcF4Kdzq6Qg-i8EvPKGMj8dHRc9TPiAeNDsBWiiFvS24wzDHARl3yaNESYJl3Jg" />
         </a>
         
         {/* Desktop Nav */}
