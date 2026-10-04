@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 @theme {
   --color-surface: #111317;
@@ -132,7 +132,7 @@
   }
 
   @media (width >= 48rem) {
-      .md\:w-52 {
+      .md\:w-48 {
           width: calc(var(--spacing) * 30);
       }
   }
@@ -178,3 +178,5 @@ body {
     }
   
 }
+
+
