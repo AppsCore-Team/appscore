@@ -126,6 +126,16 @@
     letter-spacing: 0.02em;
     font-weight: 500;
   }
+
+  .-bottom-10 {
+      bottom: calc(var(--spacing) * -1);
+  }
+
+  @media (width >= 48rem) {
+      .md\:w-52 {
+          width: calc(var(--spacing) * 30);
+      }
+  }
 }
 
 body {
