@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Button } from '../components/Button';
 
 export function Header() {
@@ -11,12 +11,12 @@ export function Header() {
     <header className="fixed top-0 inset-x-0 z-50 transition-all duration-300 backdrop-blur-xl bg-[#0D0F13]/85 border-b border-carbon-border/60">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
         <a className="flex items-center gap-3 group transition-transform hover:opacity-95" href="#" onClick={closeMenu}>
-          <img alt="AppsCore Software a la Medida" className="h-8 md:h-9 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwa5JZnduCGEd1Ltcy_WxIGfZlw3AiJ4S67_74KFl37K5zIFGPC3i7E0yJt4q50tkGPBTylThZnNYUfZV6IyAaLu9Mp5sMgOgwbyVCAsreM-UmPMYQY4exSVMyVmNpF_zT_QGMTc0JYXwGRspjKzH3wlSKkCCnENYYXEl3Zb0ukmzC-m3JyfNPysqVKwfzzlxVW7jBcF4Kdzq6Qg-i8EvPKGMj8dHRc9TPiAeNDsBWiiFvS24wzDHARl3yaNESYJl3Jg" />
+          <img alt="GimiCode Software a la Medida" className="h-8 md:h-9 w-auto object-contain" src="/gimicode.png" />
         </a>
         
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-          <a className="hover:text-white transition-colors" href="#por-que-appscore">Por qué AppsCore</a>
+          <a className="hover:text-white transition-colors" href="#por-que-GimiCode">Por qué GimiCode</a>
           <a className="hover:text-white transition-colors" href="#casos">Casos y Soluciones</a>
           <a className="hover:text-white transition-colors" href="#como-trabajamos">Cómo trabajamos</a>
           <a className="hover:text-white transition-colors" href="#testimonios">Testimonios</a>
@@ -44,7 +44,7 @@ export function Header() {
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-20 inset-x-0 bg-[#0D0F13] border-b border-carbon-border shadow-2xl p-6 flex flex-col gap-6">
           <nav className="flex flex-col gap-4 text-sm font-medium text-slate-300">
-            <a className="hover:text-white transition-colors block py-2 border-b border-carbon-border/50" href="#por-que-appscore" onClick={closeMenu}>Por qué AppsCore</a>
+            <a className="hover:text-white transition-colors block py-2 border-b border-carbon-border/50" href="#por-que-GimiCode" onClick={closeMenu}>Por qué GimiCode</a>
             <a className="hover:text-white transition-colors block py-2 border-b border-carbon-border/50" href="#casos" onClick={closeMenu}>Casos y Soluciones</a>
             <a className="hover:text-white transition-colors block py-2 border-b border-carbon-border/50" href="#como-trabajamos" onClick={closeMenu}>Cómo trabajamos</a>
             <a className="hover:text-white transition-colors block py-2 border-b border-carbon-border/50" href="#testimonios" onClick={closeMenu}>Testimonios</a>
@@ -57,3 +57,8 @@ export function Header() {
     </header>
   );
 }
+
+
+
+
+

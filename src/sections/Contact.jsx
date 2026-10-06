@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
-import emailjs from '@emailjs/browser';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -16,28 +15,47 @@ export function Contact() {
   const [success, setSuccess] = useState(false);
   const form = useRef();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    // emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
-    emailjs.sendForm(
-      import.meta.env.EMAILJS_SERVICE_ID || 'service_id_here',
-      import.meta.env.EMAILJS_TEMPLATE_ID || 'template_id_here',
-      form.current,
-      import.meta.env.EMAILJS_PUBLIC_KEY || 'public_key_here'
-    )
-      .then((result) => {
-          setLoading(false);
-          setSuccess(true);
-          form.current.reset();
-          
-          setTimeout(() => setSuccess(false), 5000);
-      }, (error) => {
-          console.error(error);
-          setLoading(false);
-          alert(`Hubo un error al enviar el mensaje: ${error.text || error.message || JSON.stringify(error)}`);
+    const formData = new FormData(form.current);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const supabaseUrl = import.meta.env.SUPABASE_URL;
+      const supabaseAnonKey = import.meta.env.SUPABASE_ANON_KEY;
+
+      if (!supabaseUrl || !supabaseAnonKey) {
+        throw new Error('Faltan las credenciales de Supabase en el archivo .env');
+      }
+
+      const response = await fetch(`${supabaseUrl}/functions/v1/send-contact-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${supabaseAnonKey}`,
+          'apikey': supabaseAnonKey
+        },
+        body: JSON.stringify(data)
       });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Error al enviar el mensaje');
+      }
+
+      setLoading(false);
+      setSuccess(true);
+      form.current.reset();
+      
+      setTimeout(() => setSuccess(false), 5000);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+      alert(`Hubo un error al enviar el mensaje: ${error.message}`);
+    }
   };
 
   return (
@@ -48,7 +66,7 @@ export function Contact() {
           <motion.div {...fadeInUp} className="lg:col-span-5">
             <div className="flex items-center gap-3.5 p-3 rounded-2xl bg-carbon-850/80 border border-brand/20 mb-6 w-max max-w-full shadow-sm">
               <div className="w-12 h-12 rounded-xl overflow-hidden border border-brand/35 bg-carbon-900 shrink-0 flex items-center justify-center">
-                <img alt="Gimi Mascota" className="w-10 h-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3mzbV_Rju-x7dHEPXZpoMAj69fviDIrG5-eXEVuKcEVPYz6xVphGycnMFyI4O5ZKCtenSaL8mJmbKzmviEK-gcKqOQ5rX1XnyQyHXLs4LhvUawbv9G5SYXKiuagTlLP0AVQ54pyAPze04i44GyiUO_273Xx32ASbe0IbJLPaWKriZ80M0RVP_L4vpm2Y9hN_KEDBDjbXiv_l9b_Ez0-9CTB6zhOMqzNry_LFUUaw_3TfdRxTXEEb-ar1ofwx7A3mkng" />
+                <img alt="Gimi Mascota" className="w-10 h-10 object-contain" src="/gimi_feliz.png"  />
               </div>
               <div className="min-w-0 pr-2">
                 <div className="text-xs font-semibold text-brand tracking-wide uppercase truncate sm:whitespace-normal">Gimi está listo para ayudarte</div>
@@ -131,10 +149,13 @@ export function Contact() {
             )}
           </motion.div>
           <div className="hidden xl:block absolute -right-24 -bottom-10 z-20 pointer-events-none">
-            <img alt="Gimi de pie contacto" className="w-48 xl:w-56 h-auto object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.8)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCNdQZBk4hrHSuaYi8Fu1bocjtouxCtTN9fLdc85AWCXWVN7f6rGbFBTwPDr3PCtKoMsMm27CSfdCtMolIoiOMbNbMQGcd52wdpK6HVEkU-AdFuVVPVVD58FAe4XQpRrTvYK_ZvaHya4diur7bgYMeFshNgcMtu5Du4tpok0MBkTjxkwKFQLk93Yc1DXQU1SBMTosZVYCPpsi6iD5uKw3eR7e5wwtYtFEnt5cy3kNs4XCJ6pXI_QzJsBT2PJnYyx057g" />
+            <img alt="Gimi de pie contacto" className="w-48 xl:w-56 h-auto object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.8)]" src="/gimi_depie.png"  />
           </div>
         </div>
       </div>
     </section>
   );
 }
+
+
+

@@ -1,5 +1,5 @@
 {
-  "name": "appscore",
+  "name": "gimicode",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
+    "@supabase/supabase-js": "^2.117.2",
     "framer-motion": "^13.5.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
