@@ -2,17 +2,23 @@ import React, { useState, useEffect } from 'react';
 
 export function ClientesPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const [isRegistering, setIsRegistering] = useState(() => {
-    return typeof window !== 'undefined' && window.location.hash === '#registro';
+  const [view, setView] = useState(() => {
+    if (typeof window !== 'undefined') {
+      if (window.location.hash === '#registro') return 'register';
+      if (window.location.hash === '#recuperar') return 'recover';
+    }
+    return 'login';
   });
 
   useEffect(() => {
-    if (isRegistering) {
+    if (view === 'register') {
       window.history.replaceState(null, '', '#registro');
+    } else if (view === 'recover') {
+      window.history.replaceState(null, '', '#recuperar');
     } else {
       window.history.replaceState(null, '', window.location.pathname + window.location.search);
     }
-  }, [isRegistering]);
+  }, [view]);
 
   return (
     <div className="bg-[#0b0c0e] text-[#e3e2e6] min-h-screen flex flex-col justify-between selection:bg-[#94d600] selection:text-black font-sans">
@@ -55,17 +61,21 @@ export function ClientesPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-center">
             
             <div className="lg:col-span-7 flex flex-col justify-center">
-              <div className="mb-6">
+                            <div className="mb-6">
                 <h1 className="font-display text-4xl sm:text-5xl lg:text-[46px] font-bold text-white tracking-tight leading-[1.12] mb-3">
-                  {isRegistering ? (
+                  {view === 'register' ? (
                     <>Crea tu <span className="text-[#94d600]">cuenta</span></>
+                  ) : view === 'recover' ? (
+                    <>Recuperar <span className="text-[#94d600]">contraseña</span></>
                   ) : (
                     <>¡Bienvenido a <span className="text-[#94d600]">GimiCode</span>!</>
                   )}
                 </h1>
                 <p className="text-base text-zinc-400 max-w-xl leading-relaxed">
-                  {isRegistering
+                  {view === 'register'
                     ? "Únete a nosotros y comienza a construir proyectos increíbles. Necesitas un código de administrador para continuar."
+                    : view === 'recover'
+                    ? "Ingresa tu correo electrónico y te enviaremos las instrucciones para restablecer tu acceso."
                     : "Accede a tu cuenta y continúa con tus proyectos, ideas y todo lo que construimos juntos."}
                 </p>
               </div>
@@ -73,7 +83,7 @@ export function ClientesPage() {
               <div className="w-full max-w-xl bg-[#13151b] border border-white/10 rounded-2xl p-7 sm:p-9 shadow-2xl relative shadow-black/80">
                 <div className="absolute -top-10 -right-10 w-36 h-36 bg-[#94d600]/10 rounded-full blur-2xl pointer-events-none"></div>
                 
-                {isRegistering ? (
+                {view === 'register' ? (
                   <form className="space-y-4 relative z-10" onSubmit={(e) => { e.preventDefault(); console.log('Registro enviado'); }}>
                     <div>
                       <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
@@ -125,7 +135,32 @@ export function ClientesPage() {
 
                     <div className="text-center pt-2 text-sm text-zinc-400">
                       ¿Ya tienes una cuenta?
-                      <button className="text-[#94d600] hover:text-[#aff331] font-semibold ml-1.5 inline-flex items-center gap-1 group" type="button" onClick={() => setIsRegistering(false)}>
+                      <button className="text-[#94d600] hover:text-[#aff331] font-semibold ml-1.5 inline-flex items-center gap-1 group" type="button" onClick={() => setView('login')}>
+                        <span>Iniciar sesión</span>
+                        <span className="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+                      </button>
+                    </div>
+                  </form>
+                ) : view === 'recover' ? (
+                  <form className="space-y-4 relative z-10" onSubmit={(e) => { e.preventDefault(); console.log('Recuperación enviada'); }}>
+                    <div>
+                      <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
+                        Correo electrónico
+                      </label>
+                      <div className="relative flex items-center">
+                        <span className="material-symbols-outlined absolute left-3.5 text-zinc-400 text-xl pointer-events-none">mail</span>
+                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="tu@empresa.com" required type="email"/>
+                      </div>
+                    </div>
+
+                    <button className="w-full mt-5 py-3.5 px-6 bg-[#94d600] hover:bg-[#a3e635] text-[#121f00] font-display font-bold text-sm sm:text-base rounded-xl flex items-center justify-center gap-2.5 transition-all duration-200 shadow-[0_4px_25px_rgba(148,214,0,0.32)] hover:shadow-[0_6px_30px_rgba(148,214,0,0.45)] active:scale-[0.99]" type="submit">
+                      <span>Enviar instrucciones</span>
+                      <span className="material-symbols-outlined font-bold text-xl">send</span>
+                    </button>
+
+                    <div className="text-center pt-2 text-sm text-zinc-400">
+                      ¿Ya la recordaste?
+                      <button className="text-[#94d600] hover:text-[#aff331] font-semibold ml-1.5 inline-flex items-center gap-1 group" type="button" onClick={() => setView('login')}>
                         <span>Iniciar sesión</span>
                         <span className="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
                       </button>
@@ -161,7 +196,7 @@ export function ClientesPage() {
                         <input defaultChecked className="w-4 h-4 rounded bg-[#0d0f14] border-white/20 text-[#94d600] focus:ring-[#94d600] focus:ring-offset-0 transition cursor-pointer" type="checkbox"/>
                         <span className="text-zinc-400 group-hover:text-zinc-200 transition-colors">Recordar mi sesión</span>
                       </label>
-                      <a className="text-[#94d600] hover:text-[#aff331] font-medium transition-colors" href="#recuperar">
+                      <a className="text-[#94d600] hover:text-[#aff331] font-medium transition-colors" href="#recuperar" onClick={(e) => { e.preventDefault(); setView('recover'); }}>
                         ¿Olvidaste tu contraseña?
                       </a>
                     </div>
@@ -188,7 +223,7 @@ export function ClientesPage() {
 
                     <div className="text-center pt-2 text-sm text-zinc-400">
                       ¿No tienes una cuenta?
-                      <button className="text-[#94d600] hover:text-[#aff331] font-semibold ml-1.5 inline-flex items-center gap-1 group" type="button" onClick={() => setIsRegistering(true)}>
+                      <button className="text-[#94d600] hover:text-[#aff331] font-semibold ml-1.5 inline-flex items-center gap-1 group" type="button" onClick={() => setView('register')}>
                         <span>Crear cuenta</span>
                         <span className="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
                       </button>
