@@ -1,4 +1,4 @@
-﻿import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
@@ -23,7 +23,7 @@ export function Contact() {
     // emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
     emailjs.sendForm(
       import.meta.env.EMAILJS_SERVICE_ID || 'service_id_here',
-      import.meta.env.EMAILJS_TEMPLATE_ID || 'template_id_here',
+      import.meta.env.EMAILJS_TEMPLATE_CONTACT || 'template_id_here',
       form.current,
       import.meta.env.EMAILJS_PUBLIC_KEY || 'public_key_here'
     )

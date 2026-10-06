@@ -6,4 +6,13 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   envPrefix: ['VITE_', 'EMAILJS_'],
+  build: {
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+        clientes: 'clientes/index.html',
+        panel: 'panel/index.html',
+      }
+    }
+  }
 })

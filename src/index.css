@@ -1,4 +1,7 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
+@source "../clientes";
+@source "../panel";
+@source "./clientes";
 
 @theme {
   --color-surface: #111317;
@@ -59,16 +62,6 @@
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
   --radius-full: 9999px;
-
-  --spacing-gutter: 1.5rem;
-  --spacing-gutter-mobile: 1rem;
-  --spacing-margin: 3rem;
-  --spacing-margin-mobile: 1.25rem;
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2.5rem;
 }
 
 /* Custom Typography Utility Classes based on design specs */
@@ -136,6 +129,24 @@
           width: calc(var(--spacing) * 30);
       }
   }
+
+  .material-symbols-filled {
+    font-family: 'Material Symbols Outlined';
+    font-variation-settings: 'FILL' 1;
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+  }
 }
 
 body {
@@ -149,34 +160,33 @@ body {
 
 
 /* Custom styles from screen.html */
-@layer utilities {
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #0d0f13;
+    color: #e5e7eb;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  body {
+    overscroll-behavior: none;
+  }
+}
 
-    @layer base {
-      html, body {
-        margin: 0;
-        padding: 0;
-        background-color: #0d0f13;
-        color: #e5e7eb;
-        font-family: 'Plus Jakarta Sans', sans-serif;
-      }
-      body {
-        overscroll-behavior: none;
-      }
-    }
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #0d0f13;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #232730;
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #333945;
-    }
-  
+@layer utilities {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0d0f13;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #232730;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #333945;
+  }
 }
 
 
