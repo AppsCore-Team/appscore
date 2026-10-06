@@ -1,4 +1,49 @@
+import { useState, useEffect } from 'react';
+import { supabase } from '../supabase';
+
 export function PanelPage() {
+  const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      
+      if (!session) {
+        window.location.href = '/clientes/';
+        return;
+      }
+
+      // Fetch profile
+      const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', session.user.id)
+        .single();
+
+      if (profileData) {
+        setProfile({
+          ...profileData,
+          email: session.user.email
+        });
+      }
+      setLoading(false);
+    };
+
+    fetchUser();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0c0e12] flex items-center justify-center">
+        <div className="w-10 h-10 border-4 border-lime-500/30 border-t-lime-500 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  const firstName = profile?.full_name?.split(' ')[0]?.toUpperCase() || 'USUARIO';
+  const roleDisplay = profile?.role || 'Cliente';
+
   return (
     <div className="min-h-screen bg-[#0c0e12] text-white font-sans flex overflow-hidden">
       
@@ -90,11 +135,18 @@ export function PanelPage() {
           </div>
           <div className="flex flex-col text-left">
             <div className="flex items-center gap-1.5">
-              <span className="text-xs font-semibold text-slate-200">German Mejia</span>
+              <span className="text-xs font-semibold text-slate-200">{profile?.full_name || 'Usuario'}</span>
               <span className="material-symbols-outlined text-[16px] text-slate-400">expand_more</span>
             </div>
-            <span className="text-[10px] text-slate-400">Desarrollador</span>
+            <span className="text-[10px] text-slate-400 capitalize">{roleDisplay}</span>
           </div>
+          <button 
+            onClick={async () => { await supabase.auth.signOut(); window.location.href='/clientes/'; }}
+            className="ml-3 w-8 h-8 flex items-center justify-center rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"
+            title="Cerrar sesión"
+          >
+            <span className="material-symbols-outlined text-[16px]">logout</span>
+          </button>
         </div>
       </div>
     </header>
@@ -110,7 +162,7 @@ export function PanelPage() {
 
         
         <div className="flex flex-col max-w-xl z-10">
-          <span className="text-[11px] font-bold tracking-widest text-lime-400 uppercase mb-2">¡HOLA, GERMAN!</span>
+          <span className="text-[11px] font-bold tracking-widest text-lime-400 uppercase mb-2">¡HOLA, {firstName}! - {roleDisplay.toUpperCase()}</span>
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-3">
             Bienvenido a <span className="text-lime-400">GimiCode</span>
           </h1>
