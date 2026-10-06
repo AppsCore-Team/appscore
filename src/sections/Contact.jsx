@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
-import emailjs from '@emailjs/browser';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -16,28 +15,47 @@ export function Contact() {
   const [success, setSuccess] = useState(false);
   const form = useRef();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    // emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
-    emailjs.sendForm(
-      import.meta.env.EMAILJS_SERVICE_ID || 'service_id_here',
-      import.meta.env.EMAILJS_TEMPLATE_CONTACT || 'template_id_here',
-      form.current,
-      import.meta.env.EMAILJS_PUBLIC_KEY || 'public_key_here'
-    )
-      .then((result) => {
-          setLoading(false);
-          setSuccess(true);
-          form.current.reset();
-          
-          setTimeout(() => setSuccess(false), 5000);
-      }, (error) => {
-          console.error(error);
-          setLoading(false);
-          alert(`Hubo un error al enviar el mensaje: ${error.text || error.message || JSON.stringify(error)}`);
+    const formData = new FormData(form.current);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+      if (!supabaseUrl || !supabaseAnonKey) {
+        throw new Error('Faltan las credenciales de Supabase en el archivo .env');
+      }
+
+      const response = await fetch(`${supabaseUrl}/functions/v1/send-contact-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${supabaseAnonKey}`,
+          'apikey': supabaseAnonKey
+        },
+        body: JSON.stringify(data)
       });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Error al enviar el mensaje');
+      }
+
+      setLoading(false);
+      setSuccess(true);
+      form.current.reset();
+      
+      setTimeout(() => setSuccess(false), 5000);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+      alert(`Hubo un error al enviar el mensaje: ${error.message}`);
+    }
   };
 
   return (
