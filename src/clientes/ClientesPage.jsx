@@ -1,7 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export function ClientesPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(() => {
+    return typeof window !== 'undefined' && window.location.hash === '#registro';
+  });
+
+  useEffect(() => {
+    if (isRegistering) {
+      window.history.replaceState(null, '', '#registro');
+    } else {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  }, [isRegistering]);
 
   return (
     <div className="bg-[#0b0c0e] text-[#e3e2e6] min-h-screen flex flex-col justify-between selection:bg-[#94d600] selection:text-black font-sans">
@@ -46,78 +57,144 @@ export function ClientesPage() {
             <div className="lg:col-span-7 flex flex-col justify-center">
               <div className="mb-6">
                 <h1 className="font-display text-4xl sm:text-5xl lg:text-[46px] font-bold text-white tracking-tight leading-[1.12] mb-3">
-                  ¡Bienvenido a <span className="text-[#94d600]">GimiCode</span>!
+                  {isRegistering ? (
+                    <>Crea tu <span className="text-[#94d600]">cuenta</span></>
+                  ) : (
+                    <>¡Bienvenido a <span className="text-[#94d600]">GimiCode</span>!</>
+                  )}
                 </h1>
                 <p className="text-base text-zinc-400 max-w-xl leading-relaxed">
-                  Accede a tu cuenta y continúa con tus proyectos, ideas y todo lo que construimos juntos.
+                  {isRegistering
+                    ? "Únete a nosotros y comienza a construir proyectos increíbles. Necesitas un código de administrador para continuar."
+                    : "Accede a tu cuenta y continúa con tus proyectos, ideas y todo lo que construimos juntos."}
                 </p>
               </div>
 
               <div className="w-full max-w-xl bg-[#13151b] border border-white/10 rounded-2xl p-7 sm:p-9 shadow-2xl relative shadow-black/80">
                 <div className="absolute -top-10 -right-10 w-36 h-36 bg-[#94d600]/10 rounded-full blur-2xl pointer-events-none"></div>
                 
-                <form className="space-y-4 relative z-10" onSubmit={(e) => { e.preventDefault(); window.location.href = '/panel/'; }}>
-                  <div>
-                    <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
-                      Correo electrónico
-                    </label>
-                    <div className="relative flex items-center">
-                      <span className="material-symbols-outlined absolute left-3.5 text-zinc-400 text-xl pointer-events-none">mail</span>
-                      <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="tu@empresa.com" required type="email"/>
+                {isRegistering ? (
+                  <form className="space-y-4 relative z-10" onSubmit={(e) => { e.preventDefault(); console.log('Registro enviado'); }}>
+                    <div>
+                      <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
+                        Nombre completo
+                      </label>
+                      <div className="relative flex items-center">
+                        <span className="material-symbols-outlined absolute left-3.5 text-zinc-400 text-xl pointer-events-none">person</span>
+                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="Ej. Juan Pérez" required type="text"/>
+                      </div>
                     </div>
-                  </div>
 
-                  <div>
-                    <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
-                      Contraseña
-                    </label>
-                    <div className="relative flex items-center">
-                      <span className="material-symbols-outlined absolute left-3.5 text-zinc-400 text-xl pointer-events-none">lock</span>
-                      <input className="w-full pl-11 pr-11 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" id="password-input" placeholder="••••••••••••" required type={showPassword ? "text" : "password"}/>
-                      <button aria-label="Mostrar u ocultar contraseña" className="absolute right-3.5 text-zinc-400 hover:text-white p-1 transition-colors" type="button" onClick={() => setShowPassword(!showPassword)}>
-                        <span className="material-symbols-outlined text-xl">{showPassword ? 'visibility' : 'visibility_off'}</span>
+                    <div>
+                      <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
+                        Correo electrónico
+                      </label>
+                      <div className="relative flex items-center">
+                        <span className="material-symbols-outlined absolute left-3.5 text-zinc-400 text-xl pointer-events-none">mail</span>
+                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="tu@empresa.com" required type="email"/>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
+                        Contraseña
+                      </label>
+                      <div className="relative flex items-center">
+                        <span className="material-symbols-outlined absolute left-3.5 text-zinc-400 text-xl pointer-events-none">lock</span>
+                        <input className="w-full pl-11 pr-11 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="••••••••••••" required type={showPassword ? "text" : "password"}/>
+                        <button aria-label="Mostrar u ocultar contraseña" className="absolute right-3.5 text-zinc-400 hover:text-white p-1 transition-colors" type="button" onClick={() => setShowPassword(!showPassword)}>
+                          <span className="material-symbols-outlined text-xl">{showPassword ? 'visibility' : 'visibility_off'}</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
+                        Código de administrador
+                      </label>
+                      <div className="relative flex items-center">
+                        <span className="material-symbols-outlined absolute left-3.5 text-[#94d600] text-xl pointer-events-none">key</span>
+                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14]/50 text-white placeholder-zinc-500 rounded-xl border border-[#94d600]/30 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="Código provisto por el admin" required type="text"/>
+                      </div>
+                    </div>
+
+                    <button className="w-full mt-5 py-3.5 px-6 bg-[#94d600] hover:bg-[#a3e635] text-[#121f00] font-display font-bold text-sm sm:text-base rounded-xl flex items-center justify-center gap-2.5 transition-all duration-200 shadow-[0_4px_25px_rgba(148,214,0,0.32)] hover:shadow-[0_6px_30px_rgba(148,214,0,0.45)] active:scale-[0.99]" type="submit">
+                      <span>Registrarse</span>
+                      <span className="material-symbols-outlined font-bold text-xl">how_to_reg</span>
+                    </button>
+
+                    <div className="text-center pt-2 text-sm text-zinc-400">
+                      ¿Ya tienes una cuenta?
+                      <button className="text-[#94d600] hover:text-[#aff331] font-semibold ml-1.5 inline-flex items-center gap-1 group" type="button" onClick={() => setIsRegistering(false)}>
+                        <span>Iniciar sesión</span>
+                        <span className="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
                       </button>
                     </div>
-                  </div>
+                  </form>
+                ) : (
+                  <form className="space-y-4 relative z-10" onSubmit={(e) => { e.preventDefault(); window.location.href = '/panel/'; }}>
+                    <div>
+                      <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
+                        Correo electrónico
+                      </label>
+                      <div className="relative flex items-center">
+                        <span className="material-symbols-outlined absolute left-3.5 text-zinc-400 text-xl pointer-events-none">mail</span>
+                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="tu@empresa.com" required type="email"/>
+                      </div>
+                    </div>
 
-                  <div className="flex items-center justify-between text-xs sm:text-sm pt-1">
-                    <label className="flex items-center gap-2.5 cursor-pointer select-none group">
-                      <input defaultChecked className="w-4 h-4 rounded bg-[#0d0f14] border-white/20 text-[#94d600] focus:ring-[#94d600] focus:ring-offset-0 transition cursor-pointer" type="checkbox"/>
-                      <span className="text-zinc-400 group-hover:text-zinc-200 transition-colors">Recordar mi sesión</span>
-                    </label>
-                    <a className="text-[#94d600] hover:text-[#aff331] font-medium transition-colors" href="#recuperar">
-                      ¿Olvidaste tu contraseña?
-                    </a>
-                  </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
+                        Contraseña
+                      </label>
+                      <div className="relative flex items-center">
+                        <span className="material-symbols-outlined absolute left-3.5 text-zinc-400 text-xl pointer-events-none">lock</span>
+                        <input className="w-full pl-11 pr-11 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" id="password-input" placeholder="••••••••••••" required type={showPassword ? "text" : "password"}/>
+                        <button aria-label="Mostrar u ocultar contraseña" className="absolute right-3.5 text-zinc-400 hover:text-white p-1 transition-colors" type="button" onClick={() => setShowPassword(!showPassword)}>
+                          <span className="material-symbols-outlined text-xl">{showPassword ? 'visibility' : 'visibility_off'}</span>
+                        </button>
+                      </div>
+                    </div>
 
-                  <button className="w-full mt-3 py-3.5 px-6 bg-[#94d600] hover:bg-[#a3e635] text-[#121f00] font-display font-bold text-sm sm:text-base rounded-xl flex items-center justify-center gap-2.5 transition-all duration-200 shadow-[0_4px_25px_rgba(148,214,0,0.32)] hover:shadow-[0_6px_30px_rgba(148,214,0,0.45)] active:scale-[0.99]" type="submit">
-                    <span>Iniciar sesión</span>
-                    <span className="material-symbols-outlined font-bold text-xl">arrow_forward</span>
-                  </button>
+                    <div className="flex items-center justify-between text-xs sm:text-sm pt-1">
+                      <label className="flex items-center gap-2.5 cursor-pointer select-none group">
+                        <input defaultChecked className="w-4 h-4 rounded bg-[#0d0f14] border-white/20 text-[#94d600] focus:ring-[#94d600] focus:ring-offset-0 transition cursor-pointer" type="checkbox"/>
+                        <span className="text-zinc-400 group-hover:text-zinc-200 transition-colors">Recordar mi sesión</span>
+                      </label>
+                      <a className="text-[#94d600] hover:text-[#aff331] font-medium transition-colors" href="#recuperar">
+                        ¿Olvidaste tu contraseña?
+                      </a>
+                    </div>
 
-                  <div className="relative flex items-center justify-center my-3">
-                    <div className="w-full h-px bg-white/10"></div>
-                    <span className="absolute px-3 bg-[#13151b] font-mono text-xs text-zinc-500 uppercase">o</span>
-                  </div>
+                    <button className="w-full mt-3 py-3.5 px-6 bg-[#94d600] hover:bg-[#a3e635] text-[#121f00] font-display font-bold text-sm sm:text-base rounded-xl flex items-center justify-center gap-2.5 transition-all duration-200 shadow-[0_4px_25px_rgba(148,214,0,0.32)] hover:shadow-[0_6px_30px_rgba(148,214,0,0.45)] active:scale-[0.99]" type="submit">
+                      <span>Iniciar sesión</span>
+                      <span className="material-symbols-outlined font-bold text-xl">arrow_forward</span>
+                    </button>
 
-                  <button className="w-full py-3 px-5 bg-[#0d0f14] hover:bg-white/[0.04] border border-white/10 hover:border-white/20 rounded-xl flex items-center justify-center gap-3 text-zinc-200 hover:text-white font-medium text-sm transition-all duration-150 active:scale-[0.99]" type="button">
-                    <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
-                      <path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.66v3.05h3.87c2.27-2.09 3.675-5.17 3.675-9.15z" fill="#4285F4"></path>
-                      <path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.87-3.05c-1.08.72-2.45 1.16-4.06 1.16-3.13 0-5.78-2.11-6.73-4.96H1.26v3.15C3.25 21.36 7.31 24 12 24z" fill="#34A853"></path>
-                      <path d="M5.27 14.24c-.25-.72-.39-1.5-.39-2.24s.14-1.52.39-2.24V6.61H1.26C.46 8.21 0 10.04 0 12s.46 3.79 1.26 5.39l4.01-3.15z" fill="#FBBC05"></path>
-                      <path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.25 2.64 1.26 6.61l4.01 3.15c.95-2.85 3.6-4.96 6.73-4.96z" fill="#EA4335"></path>
-                    </svg>
-                    <span>Continuar con Google</span>
-                  </button>
+                    <div className="relative flex items-center justify-center my-3">
+                      <div className="w-full h-px bg-white/10"></div>
+                      <span className="absolute px-3 bg-[#13151b] font-mono text-xs text-zinc-500 uppercase">o</span>
+                    </div>
 
-                  <div className="text-center pt-2 text-sm text-zinc-400">
-                    ¿No tienes una cuenta?
-                    <a className="text-[#94d600] hover:text-[#aff331] font-semibold ml-1.5 inline-flex items-center gap-1 group" href="#registro">
-                      <span>Crear cuenta</span>
-                      <span className="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
-                    </a>
-                  </div>
-                </form>
+                    <button className="w-full py-3 px-5 bg-[#0d0f14] hover:bg-white/[0.04] border border-white/10 hover:border-white/20 rounded-xl flex items-center justify-center gap-3 text-zinc-200 hover:text-white font-medium text-sm transition-all duration-150 active:scale-[0.99]" type="button">
+                      <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+                        <path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.66v3.05h3.87c2.27-2.09 3.675-5.17 3.675-9.15z" fill="#4285F4"></path>
+                        <path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.87-3.05c-1.08.72-2.45 1.16-4.06 1.16-3.13 0-5.78-2.11-6.73-4.96H1.26v3.15C3.25 21.36 7.31 24 12 24z" fill="#34A853"></path>
+                        <path d="M5.27 14.24c-.25-.72-.39-1.5-.39-2.24s.14-1.52.39-2.24V6.61H1.26C.46 8.21 0 10.04 0 12s.46 3.79 1.26 5.39l4.01-3.15z" fill="#FBBC05"></path>
+                        <path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.25 2.64 1.26 6.61l4.01 3.15c.95-2.85 3.6-4.96 6.73-4.96z" fill="#EA4335"></path>
+                      </svg>
+                      <span>Continuar con Google</span>
+                    </button>
+
+                    <div className="text-center pt-2 text-sm text-zinc-400">
+                      ¿No tienes una cuenta?
+                      <button className="text-[#94d600] hover:text-[#aff331] font-semibold ml-1.5 inline-flex items-center gap-1 group" type="button" onClick={() => setIsRegistering(true)}>
+                        <span>Crear cuenta</span>
+                        <span className="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+                      </button>
+                    </div>
+                  </form>
+                )}
               </div>
             </div>
             
