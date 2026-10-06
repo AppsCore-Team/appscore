@@ -1,7 +1,53 @@
 import React, { useState, useEffect } from 'react';
+import { supabase } from '../supabase';
 
 export function ClientesPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  
+  // Registration form states
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [company, setCompany] = useState('');
+  const [phone, setPhone] = useState('');
+  const [adminCode, setAdminCode] = useState('');
+  
+  // Toast notification state
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
+
+  const showToast = (message, type = 'success') => {
+    setToast({ show: true, message, type });
+    setTimeout(() => setToast(prev => ({ ...prev, show: false })), 5000);
+  };
+
+  // Error translation helper
+  const translateAuthError = (error) => {
+    const msg = error.message || '';
+    if (msg.includes('already registered') || msg.includes('User already exists')) {
+      return 'El correo electrónico ya está registrado.';
+    }
+    if (msg.includes('Password should be at least')) {
+      return 'La contraseña debe tener al menos 6 caracteres.';
+    }
+    if (msg.includes('Database error saving new user')) {
+      return 'El código de administrador es inválido o ya fue utilizado.';
+    }
+    if (msg.includes('Error sending confirmation email')) {
+      return 'Error con el servidor de correos (SMTP). Verifica la configuración.';
+    }
+    if (msg.includes('Invalid login credentials')) {
+      return 'Correo o contraseña incorrectos.';
+    }
+    if (msg.includes('Email not confirmed')) {
+      return 'Por favor confirma tu correo electrónico antes de iniciar sesión.';
+    }
+    if (msg.includes('Valid email is required') || msg.includes('Unable to validate email')) {
+      return 'Debes ingresar un correo electrónico válido.';
+    }
+    return 'Ocurrió un error inesperado. Intenta nuevamente.';
+  };
+
   const [view, setView] = useState(() => {
     if (typeof window !== 'undefined') {
       if (window.location.hash === '#registro') return 'register';
@@ -84,14 +130,76 @@ export function ClientesPage() {
                 <div className="absolute -top-10 -right-10 w-36 h-36 bg-[#94d600]/10 rounded-full blur-2xl pointer-events-none"></div>
                 
                 {view === 'register' ? (
-                  <form className="space-y-4 relative z-10" onSubmit={(e) => { e.preventDefault(); console.log('Registro enviado'); }}>
+                  <form className="space-y-4 relative z-10" onSubmit={async (e) => { 
+                    e.preventDefault(); 
+                    setLoading(true);
+                    
+                    const { data, error } = await supabase.auth.signUp({
+                      email,
+                      password,
+                      options: {
+                        emailRedirectTo: `${window.location.origin}/clientes/`,
+                        data: {
+                          admin_code: adminCode,
+                          full_name: fullName,
+                          company: company,
+                          phone: phone,
+                        }
+                      }
+                    });
+                    
+                    if (error) {
+                      setLoading(false);
+                      showToast(translateAuthError(error), 'error');
+                      return;
+                    } 
+                    
+                    // Prevención de enumeración de Supabase: si el correo ya existe,
+                    // Supabase no devuelve error por seguridad, pero la lista de identidades viene vacía.
+                    if (data?.user?.identities && data.user.identities.length === 0) {
+                      setLoading(false);
+                      showToast('El correo electrónico ya está registrado.', 'error');
+                      return;
+                    }
+
+                    // Call Edge Function to send custom welcome email
+                    await supabase.functions.invoke('send-welcome-email', {
+                      body: { user_name: fullName, user_email: email }
+                    });
+                    
+                    setLoading(false);
+                    showToast("Registro exitoso. Serás redirigido al panel.", 'success');
+                    setTimeout(() => {
+                      window.location.href = '/panel/';
+                    }, 2000);
+                  }}>
                     <div>
                       <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
                         Nombre completo
                       </label>
                       <div className="relative flex items-center">
                         <span className="material-symbols-outlined absolute left-3.5 text-zinc-400 text-xl pointer-events-none">person</span>
-                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="Ej. Juan Pérez" required type="text"/>
+                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="Ej. Juan Pérez" required type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
+                        Empresa / Organización
+                      </label>
+                      <div className="relative flex items-center">
+                        <span className="material-symbols-outlined absolute left-3.5 text-zinc-400 text-xl pointer-events-none">business</span>
+                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="Nombre de tu empresa" required type="text" value={company} onChange={(e) => setCompany(e.target.value)} />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
+                        Celular
+                      </label>
+                      <div className="relative flex items-center">
+                        <span className="material-symbols-outlined absolute left-3.5 text-zinc-400 text-xl pointer-events-none">phone_iphone</span>
+                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="+57 300 000 0000" required type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
                       </div>
                     </div>
 
@@ -101,7 +209,7 @@ export function ClientesPage() {
                       </label>
                       <div className="relative flex items-center">
                         <span className="material-symbols-outlined absolute left-3.5 text-zinc-400 text-xl pointer-events-none">mail</span>
-                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="tu@empresa.com" required type="email"/>
+                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="tu@empresa.com" required type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                       </div>
                     </div>
 
@@ -111,7 +219,7 @@ export function ClientesPage() {
                       </label>
                       <div className="relative flex items-center">
                         <span className="material-symbols-outlined absolute left-3.5 text-zinc-400 text-xl pointer-events-none">lock</span>
-                        <input className="w-full pl-11 pr-11 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="••••••••••••" required type={showPassword ? "text" : "password"}/>
+                        <input className="w-full pl-11 pr-11 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="••••••••••••" required type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} />
                         <button aria-label="Mostrar u ocultar contraseña" className="absolute right-3.5 text-zinc-400 hover:text-white p-1 transition-colors" type="button" onClick={() => setShowPassword(!showPassword)}>
                           <span className="material-symbols-outlined text-xl">{showPassword ? 'visibility' : 'visibility_off'}</span>
                         </button>
@@ -124,12 +232,12 @@ export function ClientesPage() {
                       </label>
                       <div className="relative flex items-center">
                         <span className="material-symbols-outlined absolute left-3.5 text-[#94d600] text-xl pointer-events-none">key</span>
-                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14]/50 text-white placeholder-zinc-500 rounded-xl border border-[#94d600]/30 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="Código provisto por el admin" required type="text"/>
+                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14]/50 text-white placeholder-zinc-500 rounded-xl border border-[#94d600]/30 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="Código provisto por el admin" required type="text" value={adminCode} onChange={(e) => setAdminCode(e.target.value)} />
                       </div>
                     </div>
 
-                    <button className="w-full mt-5 py-3.5 px-6 bg-[#94d600] hover:bg-[#a3e635] text-[#121f00] font-display font-bold text-sm sm:text-base rounded-xl flex items-center justify-center gap-2.5 transition-all duration-200 shadow-[0_4px_25px_rgba(148,214,0,0.32)] hover:shadow-[0_6px_30px_rgba(148,214,0,0.45)] active:scale-[0.99]" type="submit">
-                      <span>Registrarse</span>
+                    <button className="w-full mt-5 py-3.5 px-6 bg-[#94d600] hover:bg-[#a3e635] text-[#121f00] font-display font-bold text-sm sm:text-base rounded-xl flex items-center justify-center gap-2.5 transition-all duration-200 shadow-[0_4px_25px_rgba(148,214,0,0.32)] hover:shadow-[0_6px_30px_rgba(148,214,0,0.45)] active:scale-[0.99] disabled:opacity-70" disabled={loading} type="submit">
+                      <span>{loading ? 'Registrando...' : 'Registrarse'}</span>
                       <span className="material-symbols-outlined font-bold text-xl">how_to_reg</span>
                     </button>
 
@@ -167,7 +275,17 @@ export function ClientesPage() {
                     </div>
                   </form>
                 ) : (
-                  <form className="space-y-4 relative z-10" onSubmit={(e) => { e.preventDefault(); window.location.href = '/panel/'; }}>
+                  <form className="space-y-4 relative z-10" onSubmit={async (e) => { 
+                    e.preventDefault(); 
+                    setLoading(true);
+                    const { error } = await supabase.auth.signInWithPassword({ email, password });
+                    setLoading(false);
+                    if (error) {
+                      showToast(translateAuthError(error), 'error');
+                    } else {
+                      window.location.href = '/panel/';
+                    }
+                  }}>
                     <div>
                       <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
                         Correo electrónico
@@ -322,6 +440,19 @@ export function ClientesPage() {
           </div>
         </div>
       </footer>
+
+      {/* Toast Notification */}
+      <div className={`fixed top-6 right-6 sm:top-8 sm:right-8 z-50 transition-all duration-400 transform ${toast.show ? 'translate-y-0 opacity-100 scale-100' : '-translate-y-10 opacity-0 scale-95 pointer-events-none'}`}>
+        <div className={`flex items-center gap-3.5 px-5 py-4 rounded-xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.8)] border backdrop-blur-xl ${toast.type === 'error' ? 'bg-[#1f0e0e]/90 border-red-500/40 text-red-200' : 'bg-[#101705]/90 border-[#94d600]/40 text-[#94d600]'}`}>
+          <span className="material-symbols-outlined text-2xl">
+            {toast.type === 'error' ? 'error' : 'check_circle'}
+          </span>
+          <p className="text-sm font-medium pr-4 text-white drop-shadow-md">{toast.message}</p>
+          <button type="button" onClick={() => setToast(prev => ({ ...prev, show: false }))} className={`p-1.5 rounded-lg transition-colors ml-1 ${toast.type === 'error' ? 'hover:bg-red-500/20 text-red-300' : 'hover:bg-[#94d600]/20 text-[#94d600]'}`}>
+            <span className="material-symbols-outlined text-lg block">close</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
