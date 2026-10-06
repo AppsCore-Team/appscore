@@ -23,8 +23,8 @@ export function Contact() {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-      const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+      const supabaseUrl = import.meta.env.SUPABASE_URL;
+      const supabaseAnonKey = import.meta.env.SUPABASE_ANON_KEY;
 
       if (!supabaseUrl || !supabaseAnonKey) {
         throw new Error('Faltan las credenciales de Supabase en el archivo .env');
