@@ -50,6 +50,7 @@ export function ClientesPage() {
 
   const [view, setView] = useState(() => {
     if (typeof window !== 'undefined') {
+      if (window.location.hash.includes('type=recovery') || window.location.hash.includes('update-password')) return 'update-password';
       if (window.location.hash === '#registro') return 'register';
       if (window.location.hash === '#recuperar') return 'recover';
     }
@@ -61,6 +62,8 @@ export function ClientesPage() {
       window.history.replaceState(null, '', '#registro');
     } else if (view === 'recover') {
       window.history.replaceState(null, '', '#recuperar');
+    } else if (view === 'update-password') {
+      window.history.replaceState(null, '', '#update-password');
     } else {
       window.history.replaceState(null, '', window.location.pathname + window.location.search);
     }
@@ -250,19 +253,32 @@ export function ClientesPage() {
                     </div>
                   </form>
                 ) : view === 'recover' ? (
-                  <form className="space-y-4 relative z-10" onSubmit={(e) => { e.preventDefault(); console.log('Recuperación enviada'); }}>
+                  <form className="space-y-4 relative z-10" onSubmit={async (e) => { 
+                    e.preventDefault(); 
+                    setLoading(true);
+                    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                      redirectTo: `${window.location.origin}/clientes/#update-password`,
+                    });
+                    setLoading(false);
+                    if (error) {
+                      showToast(translateAuthError(error), 'error');
+                    } else {
+                      showToast('Instrucciones enviadas. Revisa tu correo.', 'success');
+                      setView('login');
+                    }
+                  }}>
                     <div>
                       <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
                         Correo electrónico
                       </label>
                       <div className="relative flex items-center">
                         <span className="material-symbols-outlined absolute left-3.5 text-zinc-400 text-xl pointer-events-none">mail</span>
-                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="tu@empresa.com" required type="email"/>
+                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="tu@empresa.com" required type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                       </div>
                     </div>
 
-                    <button className="w-full mt-5 py-3.5 px-6 bg-[#94d600] hover:bg-[#a3e635] text-[#121f00] font-display font-bold text-sm sm:text-base rounded-xl flex items-center justify-center gap-2.5 transition-all duration-200 shadow-[0_4px_25px_rgba(148,214,0,0.32)] hover:shadow-[0_6px_30px_rgba(148,214,0,0.45)] active:scale-[0.99]" type="submit">
-                      <span>Enviar instrucciones</span>
+                    <button className="w-full mt-5 py-3.5 px-6 bg-[#94d600] hover:bg-[#a3e635] text-[#121f00] font-display font-bold text-sm sm:text-base rounded-xl flex items-center justify-center gap-2.5 transition-all duration-200 shadow-[0_4px_25px_rgba(148,214,0,0.32)] hover:shadow-[0_6px_30px_rgba(148,214,0,0.45)] active:scale-[0.99]" type="submit" disabled={loading}>
+                      <span>{loading ? 'Enviando...' : 'Enviar instrucciones'}</span>
                       <span className="material-symbols-outlined font-bold text-xl">send</span>
                     </button>
 
@@ -273,6 +289,38 @@ export function ClientesPage() {
                         <span className="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
                       </button>
                     </div>
+                  </form>
+                ) : view === 'update-password' ? (
+                  <form className="space-y-4 relative z-10" onSubmit={async (e) => {
+                    e.preventDefault();
+                    setLoading(true);
+                    const { error } = await supabase.auth.updateUser({ password });
+                    setLoading(false);
+                    if (error) {
+                      showToast(translateAuthError(error), 'error');
+                    } else {
+                      showToast('Contraseña actualizada correctamente.', 'success');
+                      setView('login');
+                      setPassword('');
+                    }
+                  }}>
+                    <div>
+                      <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
+                        Nueva contraseña
+                      </label>
+                      <div className="relative flex items-center">
+                        <span className="material-symbols-outlined absolute left-3.5 text-zinc-400 text-xl pointer-events-none">lock</span>
+                        <input className="w-full pl-11 pr-11 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="••••••••••••" required type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <button aria-label="Mostrar u ocultar contraseña" className="absolute right-3.5 text-zinc-400 hover:text-white p-1 transition-colors" type="button" onClick={() => setShowPassword(!showPassword)}>
+                          <span className="material-symbols-outlined text-xl">{showPassword ? 'visibility' : 'visibility_off'}</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <button className="w-full mt-5 py-3.5 px-6 bg-[#94d600] hover:bg-[#a3e635] text-[#121f00] font-display font-bold text-sm sm:text-base rounded-xl flex items-center justify-center gap-2.5 transition-all duration-200 shadow-[0_4px_25px_rgba(148,214,0,0.32)]" type="submit" disabled={loading}>
+                      <span>{loading ? 'Actualizando...' : 'Actualizar contraseña'}</span>
+                      <span className="material-symbols-outlined font-bold text-xl">key</span>
+                    </button>
                   </form>
                 ) : (
                   <form className="space-y-4 relative z-10" onSubmit={async (e) => { 
@@ -292,7 +340,7 @@ export function ClientesPage() {
                       </label>
                       <div className="relative flex items-center">
                         <span className="material-symbols-outlined absolute left-3.5 text-zinc-400 text-xl pointer-events-none">mail</span>
-                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="tu@empresa.com" required type="email"/>
+                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="tu@empresa.com" required type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                       </div>
                     </div>
 
@@ -302,7 +350,7 @@ export function ClientesPage() {
                       </label>
                       <div className="relative flex items-center">
                         <span className="material-symbols-outlined absolute left-3.5 text-zinc-400 text-xl pointer-events-none">lock</span>
-                        <input className="w-full pl-11 pr-11 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" id="password-input" placeholder="••••••••••••" required type={showPassword ? "text" : "password"}/>
+                        <input className="w-full pl-11 pr-11 py-3 bg-[#0d0f14] text-white placeholder-zinc-500 rounded-xl border border-white/10 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" id="password-input" placeholder="••••••••••••" required type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} />
                         <button aria-label="Mostrar u ocultar contraseña" className="absolute right-3.5 text-zinc-400 hover:text-white p-1 transition-colors" type="button" onClick={() => setShowPassword(!showPassword)}>
                           <span className="material-symbols-outlined text-xl">{showPassword ? 'visibility' : 'visibility_off'}</span>
                         </button>
