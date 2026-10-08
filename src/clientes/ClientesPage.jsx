@@ -11,7 +11,7 @@ export function ClientesPage() {
   const [password, setPassword] = useState('');
   const [company, setCompany] = useState('');
   const [phone, setPhone] = useState('');
-  const [adminCode, setAdminCode] = useState('');
+  const [inviteCode, setInviteCode] = useState('');
   
   // Toast notification state
   const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
@@ -31,7 +31,7 @@ export function ClientesPage() {
       return 'La contraseña debe tener al menos 6 caracteres.';
     }
     if (msg.includes('Database error saving new user')) {
-      return 'El código de administrador es inválido o ya fue utilizado.';
+      return 'El código de invitación es inválido, no coincide con tu correo, o ya fue usado.';
     }
     if (msg.includes('Error sending confirmation email')) {
       return 'Error con el servidor de correos (SMTP). Verifica la configuración.';
@@ -122,7 +122,7 @@ export function ClientesPage() {
                 </h1>
                 <p className="text-base text-zinc-400 max-w-xl leading-relaxed">
                   {view === 'register'
-                    ? "Únete a nosotros y comienza a construir proyectos increíbles. Necesitas un código de administrador para continuar."
+                    ? "Únete a nosotros y comienza a construir proyectos increíbles. Necesitas un código de invitación para continuar."
                     : view === 'recover'
                     ? "Ingresa tu correo electrónico y te enviaremos las instrucciones para restablecer tu acceso."
                     : "Accede a tu cuenta y continúa con tus proyectos, ideas y todo lo que construimos juntos."}
@@ -143,7 +143,7 @@ export function ClientesPage() {
                       options: {
                         emailRedirectTo: `${window.location.origin}/clientes/`,
                         data: {
-                          admin_code: adminCode,
+                          invite_code: inviteCode,
                           full_name: fullName,
                           company: company,
                           phone: phone,
@@ -231,11 +231,11 @@ export function ClientesPage() {
 
                     <div>
                       <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
-                        Código de administrador
+                        Código de Invitación
                       </label>
                       <div className="relative flex items-center">
                         <span className="material-symbols-outlined absolute left-3.5 text-[#94d600] text-xl pointer-events-none">key</span>
-                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14]/50 text-white placeholder-zinc-500 rounded-xl border border-[#94d600]/30 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="Código provisto por el admin" required type="text" value={adminCode} onChange={(e) => setAdminCode(e.target.value)} />
+                        <input className="w-full pl-11 pr-4 py-3 bg-[#0d0f14]/50 text-white placeholder-zinc-500 rounded-xl border border-[#94d600]/30 focus:outline-none focus:border-[#94d600] focus:ring-1 focus:ring-[#94d600] text-sm transition-all duration-150" placeholder="Código provisto por el admin" required type="text" value={inviteCode} onChange={(e) => setInviteCode(e.target.value)} />
                       </div>
                     </div>
 
