@@ -9,6 +9,8 @@ import { PermisosPage } from './pages/permisos/PermisosPage';
 import { CreateProjectPage } from './pages/create_project/CreateProjectPage';
 import { ProyectosPage } from './pages/proyectos/ProyectosPage';
 import { ContactosPage } from './pages/contactos/ContactosPage';
+import { DisponibilidadPage } from './pages/disponibilidad/DisponibilidadPage';
+import { CitasPage } from './pages/citas/CitasPage';
 
 // Router básico
 const ROUTES = [
@@ -16,6 +18,8 @@ const ROUTES = [
   { path: '/panel/nuevo-proyecto', module: 'nuevo_proyecto', Component: CreateProjectPage },
   { path: '/panel/proyectos', module: 'proyectos', Component: ProyectosPage },
   { path: '/panel/contactos', module: 'contactos', Component: ContactosPage },
+  { path: '/panel/disponibilidad', module: 'disponibilidad', Component: DisponibilidadPage },
+  { path: '/panel/citas', module: 'citas', Component: CitasPage },
 ];
 
 export function PanelPage() {
