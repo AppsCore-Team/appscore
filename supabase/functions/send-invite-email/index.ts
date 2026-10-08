@@ -1,4 +1,4 @@
-import { getWelcomeEmailTemplate } from "../_shared/templates/welcomeTemplate.ts";
+import { getInviteEmailTemplate } from "../_shared/templates/inviteTemplate.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -13,22 +13,11 @@ Deno.serve(async (req) => {
   try {
     const data = await req.json();
     
-    // Asumiendo que el webhook o la app nos envía user_name y user_email
-    // Si viene desde un webhook de Supabase (inserción en profiles), `data.record` tendría los datos
-    let user_name = data.user_name;
-    let user_email = data.user_email;
+    const user_email = data.user_email;
+    const invite_code = data.invite_code;
 
-    // Soporte para Webhook de Supabase
-    if (data.type === 'INSERT' && data.table === 'profiles') {
-        user_name = data.record.full_name;
-        // Necesitaríamos obtener el email del usuario. 
-        // Si el webhook viene de `auth.users`, tendríamos el email.
-        // Pero como es desde profiles, vamos a asumir que el frontend invoca esta función directamente
-        // después de registrarse, para mantenerlo simple y coherente con `send-contact-email`.
-    }
-
-    if (!user_name || !user_email) {
-        throw new Error('Faltan datos obligatorios: user_name o user_email');
+    if (!invite_code || !user_email) {
+        throw new Error('Faltan datos obligatorios: invite_code o user_email');
     }
 
     const brevoApiKey = Deno.env.get('BREVO_API_KEY');
@@ -40,11 +29,7 @@ Deno.serve(async (req) => {
 
     const app_url = req.headers.get('origin') || 'https://gimicode.vercel.app';
 
-    const htmlContent = getWelcomeEmailTemplate({ 
-      user_name, 
-      reset_link: data.reset_link,
-      app_url
-    });
+    const htmlContent = getInviteEmailTemplate({ invite_code, app_url });
 
     const res = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
@@ -55,8 +40,8 @@ Deno.serve(async (req) => {
       },
       body: JSON.stringify({
         sender: { name: "GimiCode", email: senderEmail },
-        to: [{ email: user_email, name: user_name }],
-        subject: `¡Bienvenido a GimiCode, ${user_name}!`,
+        to: [{ email: user_email, name: "Invitado" }],
+        subject: `Invitación Exclusiva a GimiCode`,
         htmlContent: htmlContent
       })
     });

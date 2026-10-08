@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { supabase } from '../supabase';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
 
@@ -23,27 +24,35 @@ export function Contact() {
     const data = Object.fromEntries(formData.entries());
 
     try {
+      // 1. Guardar en la base de datos
+      const { error: dbError } = await supabase.from('contact_messages').insert([{
+        user_name: data.user_name,
+        user_email: data.user_email,
+        company_name: data.company_name,
+        project_type: data.project_type,
+        message: data.message
+      }]);
+
+      if (dbError) throw dbError;
+
+      // 2. Enviar el correo de notificación (Opcional)
       const supabaseUrl = import.meta.env.SUPABASE_URL;
       const supabaseAnonKey = import.meta.env.SUPABASE_ANON_KEY;
 
-      if (!supabaseUrl || !supabaseAnonKey) {
-        throw new Error('Faltan las credenciales de Supabase en el archivo .env');
-      }
-
-      const response = await fetch(`${supabaseUrl}/functions/v1/send-contact-email`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${supabaseAnonKey}`,
-          'apikey': supabaseAnonKey
-        },
-        body: JSON.stringify(data)
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.error || 'Error al enviar el mensaje');
+      if (supabaseUrl && supabaseAnonKey) {
+        const response = await fetch(`${supabaseUrl}/functions/v1/send-contact-email`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${supabaseAnonKey}`,
+            'apikey': supabaseAnonKey
+          },
+          body: JSON.stringify(data)
+        });
+        
+        if (!response.ok) {
+          console.warn('El correo de notificación falló, pero el mensaje se guardó en la base de datos');
+        }
       }
 
       setLoading(false);

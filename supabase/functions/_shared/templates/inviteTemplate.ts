@@ -1,6 +1,5 @@
-export const getWelcomeEmailTemplate = (data: {
-  user_name: string;
-  reset_link?: string;
+export const getInviteEmailTemplate = (data: {
+  invite_code: string;
   app_url?: string;
 }) => {
   return `
@@ -12,7 +11,7 @@ export const getWelcomeEmailTemplate = (data: {
   <meta name="x-apple-disable-message-reformatting">
   <meta name="color-scheme" content="dark">
   <meta name="supported-color-schemes" content="dark">
-  <title>GimiCode - Registro Exitoso</title>
+  <title>GimiCode - Invitación Exclusiva</title>
   <style>
     /* RESET */
     html, body {
@@ -123,7 +122,7 @@ export const getWelcomeEmailTemplate = (data: {
                   </td>
                   <td align="right" valign="middle" style="padding-left:10px;">
                     <div style="display:inline-block; border:1px solid #334124; border-radius:20px; padding:7px 12px; color:#8fe000; font-size:11px; font-weight:700; white-space:nowrap;">
-                      REGISTRO EXITOSO
+                      INVITACIÓN EXCLUSIVA
                     </div>
                   </td>
                 </tr>
@@ -135,14 +134,19 @@ export const getWelcomeEmailTemplate = (data: {
           <tr>
             <td class="content-padding" style="padding-top:10px; padding-bottom:8px;">
               <h1 class="main-title" style="margin:8px 0 10px 0; font-size:30px; line-height:38px; font-weight:800; color:#ffffff;">
-                ¡Bienvenido a GimiCode, ${data.user_name}!
+                Has sido invitado a GimiCode
               </h1>
               <p class="intro-text" style="margin:0; font-size:15px; line-height:24px; color:#c7cfdb;">
-                ${data.reset_link
-      ? 'El equipo ha creado tu cuenta. Para poder acceder a nuestra plataforma, por favor establece tu contraseña haciendo clic en el botón de abajo.'
-      : 'Tu cuenta ha sido creada exitosamente. Estamos encantados de tenerte a bordo. Ahora tienes acceso a nuestra plataforma y a todos nuestros servicios de desarrollo.'}
+                Has recibido una invitación para unirte a nuestra plataforma. Ingresa el siguiente código al momento de registrarte para activar tu cuenta.
               </p>
               
+              <!-- CÓDIGO -->
+              <div style="margin-top:20px; text-align:center;">
+                <div style="display:inline-block; padding:15px 30px; background:#0d0f14; border:1px dashed #8fe000; border-radius:12px; font-size:24px; font-family:monospace; font-weight:bold; color:#8fe000; letter-spacing:4px;">
+                  ${data.invite_code}
+                </div>
+              </div>
+
               <!-- IMAGEN MASCOTA -->
               <div style="text-align:center; margin-top:30px; margin-bottom:10px;">
                 <img src="https://gimicode.vercel.app/gimi_depie.png" alt="GimiCode Mascota" style="width:160px; max-width:100%; height:auto; border:0; outline:none; text-decoration:none;" />
@@ -153,11 +157,11 @@ export const getWelcomeEmailTemplate = (data: {
           <!-- BOTÓN -->
           <tr>
             <td class="content-padding" style="padding-top:22px; padding-bottom:40px;">
-              <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: 0 auto;">
                 <tr>
-                  <td style="border-radius:12px; background:#8fe000;">
-                    <a href="${data.reset_link ? data.reset_link : `${data.app_url || 'https://gimicode.vercel.app'}/clientes`}" target="_blank" style="display:inline-block; padding:14px 28px; font-size:15px; font-weight:700; color:#0f1218; text-decoration:none; border-radius:12px;">
-                      ${data.reset_link ? 'Establecer mi contraseña' : 'Ir a la Plataforma'}
+                  <td style="border-radius:12px; background:#8fe000; text-align:center;">
+                    <a href="${data.app_url || 'https://gimicode.vercel.app'}/clientes/?code=${data.invite_code}#registro" target="_blank" style="display:inline-block; padding:14px 28px; font-size:15px; font-weight:700; color:#0f1218; text-decoration:none; border-radius:12px;">
+                      Registrarme Ahora
                     </a>
                   </td>
                 </tr>
