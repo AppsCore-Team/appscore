@@ -21,10 +21,6 @@ export function HeroSection({ firstName, roleDisplay }) {
             <span>Crear nuevo proyecto</span>
             <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
           </button>
-          <button className="flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 border border-white/[0.1] text-xs font-medium transition-all">
-            <span className="material-symbols-outlined text-[18px] text-slate-400">menu_book</span>
-            <span>Ver documentación</span>
-          </button>
         </div>
       </div>
 

@@ -6,6 +6,7 @@ export function ProyectosPage({ role }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [clientAppointments, setClientAppointments] = useState([]);
 
   const isAdmin = role?.slug === 'administrador';
 
@@ -23,6 +24,16 @@ export function ProyectosPage({ role }) {
 
       if (error) throw error;
       setProjects(data || []);
+
+      // Auto-abrir proyecto si viene en la URL
+      const params = new URLSearchParams(window.location.search);
+      const openId = params.get('open');
+      if (openId && data) {
+        const p = data.find(proj => proj.id === openId);
+        if (p) {
+          handleOpenProject(p);
+        }
+      }
     } catch (err) {
       setError(err.message);
     } finally {
@@ -44,6 +55,16 @@ export function ProyectosPage({ role }) {
         console.error(err);
       }
     }
+
+    try {
+      const { data, error } = await supabase.rpc('get_appointments');
+      if (!error && data) {
+        setClientAppointments(data.filter(app => app.client_id === project.user_id));
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
     setSelectedProject(updatedProject);
   };
 
@@ -70,6 +91,10 @@ export function ProyectosPage({ role }) {
         return <span className="px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-semibold">En progreso</span>;
       case 'completado':
         return <span className="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold">Completado</span>;
+      case 'desplegado':
+        return <span className="px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-semibold">Desplegado</span>;
+      case 'rechazado':
+        return <span className="px-2.5 py-1 rounded-md bg-red-500/10 text-red-400 border border-red-500/20 text-xs font-semibold">Rechazado</span>;
       default:
         return <span className="px-2.5 py-1 rounded-md bg-slate-500/10 text-slate-400 border border-slate-500/20 text-xs font-semibold">{status || 'Pendiente'}</span>;
     }
@@ -102,6 +127,8 @@ export function ProyectosPage({ role }) {
                   <option value="En revision">En revisión</option>
                   <option value="En progreso">En progreso</option>
                   <option value="Completado">Completado</option>
+                  <option value="Desplegado">Desplegado</option>
+                  <option value="Rechazado">Rechazado</option>
                 </select>
               </div>
             ) : (
@@ -124,6 +151,25 @@ export function ProyectosPage({ role }) {
         <div className="flex-1 overflow-y-auto p-8">
           <div className="max-w-3xl mx-auto space-y-6">
             
+            {selectedProject.meeting_date && (
+              <div className="bg-lime-500/10 border border-lime-500/20 rounded-2xl p-6 flex items-center justify-between">
+                <div>
+                  <h2 className="text-xs font-bold text-lime-500 uppercase tracking-wider mb-1">Reunión de Exploración Agendada</h2>
+                  <p className="text-sm text-white font-medium mb-1">
+                    {new Date(selectedProject.meeting_date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} a las {selectedProject.meeting_time}
+                  </p>
+                  {clientAppointments.find(app => app.project_id === selectedProject.id)?.admin_name && (
+                    <p className="text-[10px] text-lime-500/80 uppercase font-semibold">
+                      Atendida por: {clientAppointments.find(app => app.project_id === selectedProject.id).admin_name}
+                    </p>
+                  )}
+                </div>
+                <div className="w-12 h-12 rounded-full bg-lime-500/20 flex items-center justify-center">
+                  <span className="material-symbols-outlined text-lime-400 text-[24px]">event_available</span>
+                </div>
+              </div>
+            )}
+
             <div className="bg-[#13171e] border border-white/[0.05] rounded-2xl p-6">
               <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Información del Cliente</h2>
               <div className="grid grid-cols-2 gap-4">
@@ -145,6 +191,41 @@ export function ProyectosPage({ role }) {
                 </div>
               </div>
             </div>
+
+            {/* Historial de Citas del Proyecto */}
+            {clientAppointments.filter(app => app.project_id === selectedProject.id).length > 0 && (
+              <div className="bg-[#13171e] border border-white/[0.05] rounded-2xl p-6">
+                <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4 flex items-center justify-between">
+                  <span>Historial de Citas del Proyecto</span>
+                  <span className="px-2 py-0.5 rounded-full bg-white/[0.05] text-[10px]">
+                    {clientAppointments.filter(app => app.project_id === selectedProject.id).length} citas
+                  </span>
+                </h2>
+                <div className="space-y-3">
+                  {clientAppointments.filter(app => app.project_id === selectedProject.id).map((app, index) => {
+                    const dateObj = new Date(`${app.meeting_date}T00:00:00`);
+                    const isPast = new Date(`${app.meeting_date}T${app.meeting_time}`) < new Date();
+                    return (
+                      <div key={`${app.project_id}-${index}`} className={`p-4 rounded-xl border flex items-center justify-between ${isPast ? 'bg-[#0c0e12] border-white/[0.02] opacity-70' : 'bg-[#15181e] border-white/[0.05]'}`}>
+                        <div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <p className="text-sm text-white font-bold">{app.meeting_time}</p>
+                            {!isPast && (
+                              <span className="px-1.5 py-0.5 rounded bg-lime-500/20 text-lime-400 text-[9px] uppercase font-bold tracking-wider">Próxima</span>
+                            )}
+                          </div>
+                          <p className="text-[10px] text-slate-400 capitalize">{dateObj.toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' })}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-[10px] text-slate-500 uppercase tracking-wider mb-0.5">Asesor</p>
+                          <p className="text-xs text-lime-400 font-medium">{app.admin_name || 'Pendiente'}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             <div className="bg-[#13171e] border border-white/[0.05] rounded-2xl p-6">
               <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">El Problema y la Solución Actual</h2>

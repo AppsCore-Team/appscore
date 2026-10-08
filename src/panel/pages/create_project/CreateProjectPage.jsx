@@ -19,7 +19,71 @@ export function CreateProjectPage({ profile }) {
     critical_deadline: '',
     success_criteria: '',
     investment_range: '',
+    meeting_date: '',
+    meeting_time: '',
+    meeting_admin_id: null,
   });
+
+  const [availableSlots, setAvailableSlots] = useState([]);
+  const [loadingSlots, setLoadingSlots] = useState(false);
+
+  const fetchAvailableSlots = async (dateStr) => {
+    setLoadingSlots(true);
+    setAvailableSlots([]);
+    setFormData(prev => ({ ...prev, meeting_date: dateStr, meeting_time: '', meeting_admin_id: null }));
+
+    try {
+      const dayOfWeekMap = { 0: 7, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6 };
+      const dateObj = new Date(dateStr + "T00:00:00");
+      const dayId = dayOfWeekMap[dateObj.getDay()];
+      
+      const { data: adminsAv } = await supabase.from('admin_availability').select('*');
+      const { data: booked } = await supabase.rpc('get_booked_meetings', { p_date: dateStr });
+      
+      const allSlotsMap = new Map();
+      
+      adminsAv?.forEach(admin => {
+        let startStr = null;
+        let endStr = null;
+        
+        if (admin.schedule_type === 'fixed') {
+           if (admin.schedule_data?.days?.includes(dayId)) {
+             startStr = admin.schedule_data.start;
+             endStr = admin.schedule_data.end;
+           }
+        } else {
+           const dayConf = admin.schedule_data?.days?.[dayId];
+           if (dayConf?.active) {
+             startStr = dayConf.start;
+             endStr = dayConf.end;
+           }
+        }
+        
+        if (startStr && endStr) {
+           const startHour = parseInt(startStr.split(':')[0]);
+           const endHour = parseInt(endStr.split(':')[0]);
+           
+           for (let h = startHour; h < endHour; h++) {
+             const timeStr = `${h.toString().padStart(2, '0')}:00`;
+             const isBooked = booked?.some(b => b.meeting_admin_id === admin.user_id && b.meeting_time === timeStr);
+             if (!isBooked) {
+               if (!allSlotsMap.has(timeStr)) {
+                 allSlotsMap.set(timeStr, admin.user_id);
+               }
+             }
+           }
+        }
+      });
+      
+      const availableArr = Array.from(allSlotsMap.entries()).map(([time, admin_id]) => ({ time, admin_id }));
+      availableArr.sort((a,b) => a.time.localeCompare(b.time));
+      setAvailableSlots(availableArr);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoadingSlots(false);
+    }
+  };
 
   React.useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -27,8 +91,25 @@ export function CreateProjectPage({ profile }) {
     if (id) {
       setEditId(id);
       loadProject(id);
+    } else {
+      const savedDraft = localStorage.getItem('newProjectDraft');
+      if (savedDraft) {
+        try {
+          const parsed = JSON.parse(savedDraft);
+          if (parsed.formData) setFormData(parsed.formData);
+          if (parsed.currentStep) setCurrentStep(parsed.currentStep);
+        } catch (e) {
+          console.error('Error loading draft', e);
+        }
+      }
     }
   }, []);
+
+  React.useEffect(() => {
+    if (!editId) {
+      localStorage.setItem('newProjectDraft', JSON.stringify({ formData, currentStep }));
+    }
+  }, [formData, currentStep, editId]);
 
   const loadProject = async (id) => {
     try {
@@ -58,12 +139,12 @@ export function CreateProjectPage({ profile }) {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleNext = () => setCurrentStep(prev => Math.min(prev + 1, 4));
+  const handleNext = () => setCurrentStep(prev => Math.min(prev + 1, 5));
   const handlePrev = () => setCurrentStep(prev => Math.max(prev - 1, 1));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (currentStep < 4) {
+    if (currentStep < 5) {
       handleNext();
       return;
     }
@@ -84,6 +165,7 @@ export function CreateProjectPage({ profile }) {
         });
         if (error) throw error;
         addToast('Proyecto solicitado exitosamente', 'success');
+        localStorage.removeItem('newProjectDraft');
       }
       window.location.href = '/panel/proyectos';
     } catch (err) {
@@ -93,7 +175,7 @@ export function CreateProjectPage({ profile }) {
     }
   };
 
-  const progressPercent = (currentStep / 4) * 100;
+  const progressPercent = (currentStep / 5) * 100;
 
   return (
     <div className="flex-1 flex flex-col h-full bg-[#0c0e12] relative overflow-hidden">
@@ -110,7 +192,7 @@ export function CreateProjectPage({ profile }) {
             </button>
             <div>
               <h1 className="text-xl font-bold text-white tracking-tight">{editId ? 'Editar Proyecto' : 'Nuevo Proyecto'}</h1>
-              <p className="text-xs text-slate-400">Paso {currentStep} de 4</p>
+              <p className="text-xs text-slate-400">Paso {currentStep} de 5</p>
             </div>
           </div>
           <div className="text-lime-400 font-mono text-sm font-bold">
@@ -228,6 +310,54 @@ export function CreateProjectPage({ profile }) {
             </div>
           )}
 
+          {currentStep === 5 && (
+            <div className="animate-fade-in">
+              <h2 className="text-2xl font-bold text-white mb-2">Reunión de Exploración</h2>
+              <p className="text-sm text-slate-400 mb-8">Selecciona un día y hora para que hablemos sobre tu proyecto. Si prefieres no agendar aún, puedes omitir seleccionando la fecha de hoy sin hora.</p>
+              
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Fecha</label>
+                  <input 
+                    type="date" 
+                    min={new Date().toISOString().split('T')[0]} 
+                    value={formData.meeting_date} 
+                    onChange={(e) => fetchAvailableSlots(e.target.value)} 
+                    className="w-full bg-[#0c0e12] border border-white/[0.08] rounded-xl px-4 py-3 text-white focus:border-lime-500 focus:outline-none focus:ring-1 focus:ring-lime-500 transition-all" 
+                  />
+                </div>
+
+                {formData.meeting_date && (
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-3 mt-4">Horarios disponibles</label>
+                    {loadingSlots ? (
+                      <p className="text-sm text-lime-400 animate-pulse">Buscando horarios...</p>
+                    ) : availableSlots.length === 0 ? (
+                      <p className="text-sm text-slate-400 bg-white/[0.02] p-4 rounded-xl border border-white/[0.05]">No hay horarios disponibles para esta fecha. Intenta con otra.</p>
+                    ) : (
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        {availableSlots.map(slot => (
+                          <button
+                            key={slot.time}
+                            type="button"
+                            onClick={() => setFormData(prev => ({ ...prev, meeting_time: slot.time, meeting_admin_id: slot.admin_id }))}
+                            className={`p-3 border rounded-xl text-sm font-semibold transition-all ${
+                              formData.meeting_time === slot.time 
+                                ? 'bg-lime-500 text-black border-lime-500 shadow-[0_0_15px_rgba(148,214,0,0.3)]' 
+                                : 'bg-[#0c0e12] text-white border-white/[0.08] hover:border-white/20 hover:bg-white/[0.02]'
+                            }`}
+                          >
+                            {slot.time}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* Controls */}
           <div className="mt-10 flex items-center justify-between pt-6 border-t border-white/[0.08]">
             {currentStep > 1 ? (
@@ -237,8 +367,8 @@ export function CreateProjectPage({ profile }) {
             ) : <div></div>}
 
             <button type="submit" disabled={isSubmitting} className="flex items-center gap-2 px-8 py-3 rounded-xl bg-lime-400 hover:bg-lime-300 text-black font-bold text-sm shadow-[0_0_20px_rgba(163,230,53,0.3)] transition-all disabled:opacity-70">
-              {isSubmitting ? 'Guardando...' : (currentStep === 4 ? (editId ? 'Actualizar Proyecto' : 'Enviar Proyecto') : 'Siguiente')}
-              {currentStep < 4 && <span className="material-symbols-outlined text-[18px]">arrow_forward</span>}
+              {isSubmitting ? 'Guardando...' : (currentStep === 5 ? (editId ? 'Actualizar Proyecto' : 'Agendar y Solicitar') : 'Siguiente')}
+              {currentStep < 5 && <span className="material-symbols-outlined text-[18px]">arrow_forward</span>}
             </button>
           </div>
         </form>

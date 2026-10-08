@@ -4,6 +4,7 @@ import { GimiTip } from '../components/GimiTip';
 import { RecentActivity } from '../components/RecentActivity';
 import { QuickActions } from '../components/QuickActions';
 import { CallToAction } from '../components/CallToAction';
+import { AvailabilityWidget } from '../components/AvailabilityWidget';
 
 const WIDGET_REGISTRY = {
   admin_stats: AdminStats,
@@ -11,6 +12,7 @@ const WIDGET_REGISTRY = {
   call_to_action: CallToAction,
   gimi_tip: GimiTip,
   recent_activity: RecentActivity,
+  availability: AvailabilityWidget,
 };
 
 export function DashboardPage({ profile, roleDisplay, widgets, quick_actions }) {
