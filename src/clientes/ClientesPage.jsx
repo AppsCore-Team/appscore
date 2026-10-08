@@ -11,7 +11,13 @@ export function ClientesPage() {
   const [password, setPassword] = useState('');
   const [company, setCompany] = useState('');
   const [phone, setPhone] = useState('');
-  const [inviteCode, setInviteCode] = useState('');
+  const [inviteCode, setInviteCode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('code') || '';
+    }
+    return '';
+  });
   
   // Toast notification state
   const [toast, setToast] = useState({ show: false, message: '', type: 'success' });

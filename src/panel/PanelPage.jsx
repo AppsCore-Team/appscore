@@ -6,10 +6,16 @@ import { ToastProvider } from './components/ui/Toast';
 import { AccessDenied } from './components/AccessDenied';
 import { DashboardPage } from './pages/DashboardPage';
 import { PermisosPage } from './pages/permisos/PermisosPage';
+import { CreateProjectPage } from './pages/create_project/CreateProjectPage';
+import { ProyectosPage } from './pages/proyectos/ProyectosPage';
+import { ContactosPage } from './pages/contactos/ContactosPage';
 
 // Router básico
 const ROUTES = [
   { path: '/panel/permisos', module: 'permisos', Component: PermisosPage },
+  { path: '/panel/nuevo-proyecto', module: 'nuevo_proyecto', Component: CreateProjectPage },
+  { path: '/panel/proyectos', module: 'proyectos', Component: ProyectosPage },
+  { path: '/panel/contactos', module: 'contactos', Component: ContactosPage },
 ];
 
 export function PanelPage() {

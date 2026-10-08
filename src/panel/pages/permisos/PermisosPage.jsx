@@ -170,7 +170,7 @@ export function PermisosPage({ profile }) {
     };
     window.addEventListener('beforeunload', handleBeforeUnload);
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, [draftModules, draftWidgets, draftActions, activeRoleId]);
+  }); // Sin array de dependencias para que siempre capture el getChangesCount más reciente
 
   if (loading) return (
     <div className="flex-1 flex items-center justify-center">

@@ -3,7 +3,7 @@ import { getRoleColor } from '../../components/ui/roleColors';
 import { useToast } from '../../components/ui/Toast';
 
 export function UsersTab({ adminData, myProfileId }) {
-  const { users, roles, setUserRole, invitations, cancelInvitation, adminCreateInvitation } = adminData;
+  const { users, roles, setUserRole, invitations, cancelInvitation, adminCreateInvitation, adminResendInvitation } = adminData;
   const { addToast } = useToast();
   
   const [subTab, setSubTab] = useState('active'); // 'active' | 'pending'
@@ -244,7 +244,7 @@ export function UsersTab({ adminData, myProfileId }) {
                           onClick={async () => {
                             setResendingId(inv.id);
                             try {
-                              await adminCreateInvitation(inv.email, inv.role_id);
+                              await adminResendInvitation(inv.email, inv.code);
                               addToast('Invitación reenviada', 'success');
                             } catch (e) { addToast(e.message, 'error'); }
                             finally { setResendingId(null); }

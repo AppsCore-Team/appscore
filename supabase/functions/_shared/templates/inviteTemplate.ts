@@ -1,5 +1,6 @@
 export const getInviteEmailTemplate = (data: {
   invite_code: string;
+  app_url?: string;
 }) => {
   return `
 <!DOCTYPE html>
@@ -159,7 +160,7 @@ export const getInviteEmailTemplate = (data: {
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: 0 auto;">
                 <tr>
                   <td style="border-radius:12px; background:#8fe000; text-align:center;">
-                    <a href="https://gimicode.com/clientes/#registro" target="_blank" style="display:inline-block; padding:14px 28px; font-size:15px; font-weight:700; color:#0f1218; text-decoration:none; border-radius:12px;">
+                    <a href="${data.app_url || 'https://gimicode.vercel.app'}/clientes/?code=${data.invite_code}#registro" target="_blank" style="display:inline-block; padding:14px 28px; font-size:15px; font-weight:700; color:#0f1218; text-decoration:none; border-radius:12px;">
                       Registrarme Ahora
                     </a>
                   </td>

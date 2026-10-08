@@ -1,6 +1,7 @@
 export const getWelcomeEmailTemplate = (data: {
   user_name: string;
   reset_link?: string;
+  app_url?: string;
 }) => {
   return `
 <!DOCTYPE html>
@@ -137,9 +138,9 @@ export const getWelcomeEmailTemplate = (data: {
                 ¡Bienvenido a GimiCode, ${data.user_name}!
               </h1>
               <p class="intro-text" style="margin:0; font-size:15px; line-height:24px; color:#c7cfdb;">
-                ${data.reset_link 
-                  ? 'El equipo ha creado tu cuenta. Para poder acceder a nuestra plataforma, por favor establece tu contraseña haciendo clic en el botón de abajo.' 
-                  : 'Tu cuenta ha sido creada exitosamente. Estamos encantados de tenerte a bordo. Ahora tienes acceso a nuestra plataforma y a todos nuestros servicios de desarrollo.'}
+                ${data.reset_link
+      ? 'El equipo ha creado tu cuenta. Para poder acceder a nuestra plataforma, por favor establece tu contraseña haciendo clic en el botón de abajo.'
+      : 'Tu cuenta ha sido creada exitosamente. Estamos encantados de tenerte a bordo. Ahora tienes acceso a nuestra plataforma y a todos nuestros servicios de desarrollo.'}
               </p>
               
               <!-- IMAGEN MASCOTA -->
@@ -155,7 +156,7 @@ export const getWelcomeEmailTemplate = (data: {
               <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                   <td style="border-radius:12px; background:#8fe000;">
-                    <a href="${data.reset_link ? data.reset_link : 'https://gimicode.com/clientes'}" target="_blank" style="display:inline-block; padding:14px 28px; font-size:15px; font-weight:700; color:#0f1218; text-decoration:none; border-radius:12px;">
+                    <a href="${data.reset_link ? data.reset_link : `${data.app_url || 'https://gimicode.vercel.app'}/clientes`}" target="_blank" style="display:inline-block; padding:14px 28px; font-size:15px; font-weight:700; color:#0f1218; text-decoration:none; border-radius:12px;">
                       ${data.reset_link ? 'Establecer mi contraseña' : 'Ir a la Plataforma'}
                     </a>
                   </td>

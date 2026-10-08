@@ -13,7 +13,10 @@ export function HeroSection({ firstName, roleDisplay }) {
         </p>
 
         <div className="flex items-center flex-wrap gap-4">
-          <button className="flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-lime-400 hover:bg-lime-300 text-black font-semibold text-xs transition-all shadow-[0_0_24px_rgba(163,230,53,0.3)]">
+          <button 
+            onClick={() => window.location.href = '/panel/nuevo-proyecto'}
+            className="flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-lime-400 hover:bg-lime-300 text-black font-semibold text-xs transition-all shadow-[0_0_24px_rgba(163,230,53,0.3)]"
+          >
             <span className="material-symbols-filled text-[18px]">deployed_code</span>
             <span>Crear nuevo proyecto</span>
             <span className="material-symbols-outlined text-[16px]">arrow_forward</span>

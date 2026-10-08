@@ -109,6 +109,14 @@ export function usePermissionsAdmin() {
     await fetchAll();
   };
 
+  const adminResendInvitation = async (email, code) => {
+    const { error: fnError } = await supabase.functions.invoke('send-invite-email', {
+      body: { user_email: email, invite_code: code }
+    });
+    
+    if (fnError) throw new Error('Error al reenviar el correo: ' + fnError.message);
+  };
+
   const adminCreateUser = async (email, fullName, company, phone, roleId) => {
     const { data, error } = await supabase.functions.invoke('admin-create-user', {
       body: { email, full_name: fullName, company, phone, role_id: roleId }
@@ -127,6 +135,6 @@ export function usePermissionsAdmin() {
 
   return { 
     ...data, loading, error, reload: fetchAll, getRoleSets, saveRolePermissions, 
-    createRole, deleteRole, setUserRole, adminCreateInvitation, adminCreateUser, cancelInvitation 
+    createRole, deleteRole, setUserRole, adminCreateInvitation, adminResendInvitation, adminCreateUser, cancelInvitation 
   };
 }

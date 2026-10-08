@@ -38,9 +38,12 @@ Deno.serve(async (req) => {
       throw new Error('BREVO_API_KEY no está configurada.');
     }
 
+    const app_url = req.headers.get('origin') || 'https://gimicode.vercel.app';
+
     const htmlContent = getWelcomeEmailTemplate({ 
       user_name, 
-      reset_link: data.reset_link 
+      reset_link: data.reset_link,
+      app_url
     });
 
     const res = await fetch('https://api.brevo.com/v3/smtp/email', {
