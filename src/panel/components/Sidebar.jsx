@@ -1,5 +1,32 @@
+import { useState, useEffect } from 'react';
+import { supabase } from '../../supabase';
+
 export function Sidebar({ modules }) {
   const currentPath = window.location.pathname;
+  const [supportCount, setSupportCount] = useState(0);
+
+  useEffect(() => {
+    const hasSoporte = modules && modules.some(m => m.route === '/panel/soporte');
+    if (!hasSoporte) return;
+
+    const fetchCount = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+        
+        const { data, error } = await supabase.rpc('get_support_pending_count');
+        if (!error && data != null) {
+          setSupportCount(data);
+        }
+      } catch (err) {
+        console.error("Error fetching support count:", err);
+      }
+    };
+    
+    fetchCount();
+    const interval = setInterval(fetchCount, 15000); // Poll every 15s
+    return () => clearInterval(interval);
+  }, [modules]);
 
   return (
     <aside className="w-64 fixed inset-y-0 left-0 bg-[#090a0d] border-r border-white/[0.06] flex flex-col justify-between py-6 px-4 z-40">
@@ -30,7 +57,12 @@ export function Sidebar({ modules }) {
                   <span className={isActive ? 'material-symbols-filled text-[22px]' : 'material-symbols-outlined text-[22px]'}>
                     {item.icon}
                   </span>
-                  <span className={`text-sm ${!isActive && 'font-medium'}`}>{item.label}</span>
+                  <span className={`text-sm ${!isActive && 'font-medium'} flex-1`}>{item.label}</span>
+                  {item.route === '/panel/soporte' && supportCount > 0 && (
+                    <span className="bg-lime-500 text-black text-[10px] px-2 py-0.5 rounded-full font-bold ml-auto shadow-[0_0_10px_rgba(132,204,22,0.4)]">
+                      {supportCount}
+                    </span>
+                  )}
                 </a>
               );
             })
