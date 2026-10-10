@@ -21,7 +21,7 @@ export function usePanelConfig() {
     fetchConfig();
   }, []);
 
-  const canAccess = (slug) => config.modules.some(m => m.slug === slug);
+  const canAccess = (slug) => slug === 'public' || config.modules.some(m => m.slug === slug);
 
   return { ...config, loading, canAccess };
 }

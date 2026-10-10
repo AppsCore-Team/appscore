@@ -11,6 +11,10 @@ import { ProyectosPage } from './pages/proyectos/ProyectosPage';
 import { ContactosPage } from './pages/contactos/ContactosPage';
 import { DisponibilidadPage } from './pages/disponibilidad/DisponibilidadPage';
 import { CitasPage } from './pages/citas/CitasPage';
+import { DocumentacionPage } from './pages/documentacion/DocumentacionPage';
+import { ManualPage } from './pages/manual/ManualPage';
+import { PerfilPage } from './pages/perfil/PerfilPage';
+import { SoportePage } from './pages/soporte/SoportePage';
 
 // Router básico
 const ROUTES = [
@@ -20,6 +24,10 @@ const ROUTES = [
   { path: '/panel/contactos', module: 'contactos', Component: ContactosPage },
   { path: '/panel/disponibilidad', module: 'disponibilidad', Component: DisponibilidadPage },
   { path: '/panel/citas', module: 'citas', Component: CitasPage },
+  { path: '/panel/documentacion', module: 'documentacion', Component: DocumentacionPage },
+  { path: '/panel/manual', module: 'manual', Component: ManualPage },
+  { path: '/panel/perfil', module: 'public', Component: PerfilPage },
+  { path: '/panel/soporte', module: 'soporte', Component: SoportePage },
 ];
 
 export function PanelPage() {
@@ -107,14 +115,22 @@ export function PanelPage() {
               </button>
 
               <div className="flex items-center gap-3 pl-2 border-l border-white/[0.08]">
-                <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-slate-300 font-semibold text-xs border border-white/10">
-                  <span className="material-symbols-filled text-base">person</span>
+                <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-slate-300 font-semibold text-xs border border-white/10 overflow-hidden">
+                  {profile?.avatar_url ? (
+                    <img src={profile?.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+                  ) : (
+                    <span className="material-symbols-filled text-base">person</span>
+                  )}
                 </div>
                 <div className="flex flex-col text-left">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-xs font-semibold text-slate-200">{profile?.full_name || 'Usuario'}</span>
-                    <span className="material-symbols-outlined text-[16px] text-slate-400">expand_more</span>
-                  </div>
+                  <button 
+                    onClick={() => window.location.href='/panel/perfil'}
+                    className="flex items-center gap-1.5 hover:text-lime-400 transition-colors text-left"
+                    title="Ir a Mi Perfil"
+                  >
+                    <span className="text-xs font-semibold text-slate-200 hover:text-lime-400">{profile?.full_name || 'Usuario'}</span>
+                    <span className="material-symbols-outlined text-[14px] text-slate-400">settings</span>
+                  </button>
                   <span className="text-[10px] text-slate-400 capitalize">{roleDisplay}</span>
                 </div>
                 <button 
