@@ -142,22 +142,42 @@ export function ClientesPage() {
                   <form className="space-y-4 relative z-10" onSubmit={async (e) => { 
                     e.preventDefault(); 
                     setLoading(true);
+
+                    const cleanEmail = email.trim().toLowerCase();
+                    const cleanInviteCode = inviteCode.trim().toUpperCase();
+
+                    // 1. Validar la invitación y que corresponda al correo ingresado
+                    try {
+                      const { data: checkData, error: checkError } = await supabase.rpc('check_invitation_validity', {
+                        p_email: cleanEmail,
+                        p_code: cleanInviteCode
+                      });
+
+                      if (!checkError && checkData && !checkData.valid) {
+                        setLoading(false);
+                        showToast(checkData.error, 'error');
+                        return;
+                      }
+                    } catch (err) {
+                      console.error('Error al validar invitación previa:', err);
+                    }
                     
                     const { data, error } = await supabase.auth.signUp({
-                      email,
+                      email: cleanEmail,
                       password,
                       options: {
                         emailRedirectTo: `${window.location.origin}/clientes/`,
                         data: {
-                          invite_code: inviteCode,
-                          full_name: fullName,
-                          company: company,
-                          phone: phone,
+                          invite_code: cleanInviteCode,
+                          full_name: fullName.trim(),
+                          company: company.trim(),
+                          phone: phone.trim(),
                         }
                       }
                     });
                     
                     if (error) {
+                      console.error('Sign up error details:', error);
                       setLoading(false);
                       showToast(translateAuthError(error), 'error');
                       return;
@@ -171,11 +191,7 @@ export function ClientesPage() {
                       return;
                     }
 
-                    // Call Edge Function to send custom welcome email
-                    await supabase.functions.invoke('send-welcome-email', {
-                      body: { user_name: fullName, user_email: email }
-                    });
-                    
+                    // Opción A elegida: Solo se envía el correo de confirmación de Supabase (que incluye la bienvenida)
                     setLoading(false);
                     showToast("Registro exitoso. Serás redirigido al panel.", 'success');
                     setTimeout(() => {

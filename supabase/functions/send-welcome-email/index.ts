@@ -1,4 +1,5 @@
 import { getWelcomeEmailTemplate } from "../_shared/templates/welcomeTemplate.ts";
+import { getCompiledEmailTemplate } from "../_shared/templateHelper.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -12,39 +13,44 @@ Deno.serve(async (req) => {
 
   try {
     const data = await req.json();
-    
-    // Asumiendo que el webhook o la app nos envía user_name y user_email
-    // Si viene desde un webhook de Supabase (inserción en profiles), `data.record` tendría los datos
+
     let user_name = data.user_name;
     let user_email = data.user_email;
 
-    // Soporte para Webhook de Supabase
     if (data.type === 'INSERT' && data.table === 'profiles') {
-        user_name = data.record.full_name;
-        // Necesitaríamos obtener el email del usuario. 
-        // Si el webhook viene de `auth.users`, tendríamos el email.
-        // Pero como es desde profiles, vamos a asumir que el frontend invoca esta función directamente
-        // después de registrarse, para mantenerlo simple y coherente con `send-contact-email`.
+      user_name = data.record.full_name;
     }
 
     if (!user_name || !user_email) {
-        throw new Error('Faltan datos obligatorios: user_name o user_email');
+      throw new Error('Faltan datos obligatorios: user_name o user_email');
     }
 
     const brevoApiKey = Deno.env.get('BREVO_API_KEY');
-    const senderEmail = Deno.env.get('BREVO_SENDER_EMAIL') || 'no-reply@gimicode.com';
-    
+    const senderEmail = Deno.env.get('BREVO_SENDER_EMAIL') || 'no-reply@mail.gimicode.com';
+
     if (!brevoApiKey) {
       throw new Error('BREVO_API_KEY no está configurada.');
     }
 
-    const app_url = req.headers.get('origin') || 'https://gimicode.vercel.app';
+    const app_url = req.headers.get('origin') || 'https://gimicode.com';
 
-    const htmlContent = getWelcomeEmailTemplate({ 
-      user_name, 
+    const fallbackHtml = getWelcomeEmailTemplate({
+      user_name,
       reset_link: data.reset_link,
       app_url
     });
+    const fallbackSubject = 'Bienvenido a nuestro portal, Confirma tu correo';
+
+    const { subject, htmlContent } = await getCompiledEmailTemplate(
+      'welcome',
+      {
+        user_name,
+        reset_link: data.reset_link || `${app_url}/clientes`,
+        app_url
+      },
+      fallbackHtml,
+      fallbackSubject
+    );
 
     const res = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
@@ -56,7 +62,7 @@ Deno.serve(async (req) => {
       body: JSON.stringify({
         sender: { name: "GimiCode", email: senderEmail },
         to: [{ email: user_email, name: user_name }],
-        subject: `¡Bienvenido a GimiCode, ${user_name}!`,
+        subject: subject,
         htmlContent: htmlContent
       })
     });

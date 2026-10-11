@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../../supabase';
+import { useToast } from '../../components/ui/Toast';
 
 export function ContactosPage({ role }) {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedMessage, setSelectedMessage] = useState(null);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const { addToast } = useToast();
 
   const isAdmin = role?.slug === 'administrador';
 
@@ -107,7 +110,28 @@ export function ContactosPage({ role }) {
                 </div>
                 <div>
                   <p className="text-[10px] text-slate-500 uppercase tracking-wider mb-1">Correo</p>
-                  <a href={`mailto:${selectedMessage.user_email}`} className="text-sm text-lime-400 font-medium hover:underline">{selectedMessage.user_email}</a>
+                  <div className="flex items-center gap-2 relative">
+                    <a href={`mailto:${selectedMessage.user_email}`} className="text-sm text-lime-400 font-medium hover:underline">{selectedMessage.user_email}</a>
+                    <button 
+                      onClick={() => {
+                        navigator.clipboard.writeText(selectedMessage.user_email);
+                        setCopiedEmail(true);
+                        addToast('Correo copiado al portapapeles', 'success');
+                        setTimeout(() => setCopiedEmail(false), 2000);
+                      }} 
+                      className={`h-6 px-2 rounded flex items-center justify-center gap-1 transition-all ${
+                        copiedEmail 
+                          ? 'bg-lime-500/20 text-lime-400 border border-lime-500/30' 
+                          : 'bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white'
+                      }`}
+                      title="Copiar correo"
+                    >
+                      <span className="material-symbols-outlined text-[14px]">
+                        {copiedEmail ? 'check' : 'content_copy'}
+                      </span>
+                      {copiedEmail && <span className="text-[10px] font-bold">¡Copiado!</span>}
+                    </button>
+                  </div>
                 </div>
                 <div>
                   <p className="text-[10px] text-slate-500 uppercase tracking-wider mb-1">Tipo de proyecto</p>

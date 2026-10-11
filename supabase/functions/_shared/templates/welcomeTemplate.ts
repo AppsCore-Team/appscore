@@ -12,7 +12,7 @@ export const getWelcomeEmailTemplate = (data: {
   <meta name="x-apple-disable-message-reformatting">
   <meta name="color-scheme" content="dark">
   <meta name="supported-color-schemes" content="dark">
-  <title>GimiCode - Registro Exitoso</title>
+  <title>Bienvenido a nuestro portal, Confirma tu correo</title>
   <style>
     /* RESET */
     html, body {
@@ -123,7 +123,7 @@ export const getWelcomeEmailTemplate = (data: {
                   </td>
                   <td align="right" valign="middle" style="padding-left:10px;">
                     <div style="display:inline-block; border:1px solid #334124; border-radius:20px; padding:7px 12px; color:#8fe000; font-size:11px; font-weight:700; white-space:nowrap;">
-                      REGISTRO EXITOSO
+                      BIENVENIDO A NUESTRO PORTAL
                     </div>
                   </td>
                 </tr>
@@ -134,8 +134,8 @@ export const getWelcomeEmailTemplate = (data: {
           <!-- INTRODUCCIÓN -->
           <tr>
             <td class="content-padding" style="padding-top:10px; padding-bottom:8px;">
-              <h1 class="main-title" style="margin:8px 0 10px 0; font-size:30px; line-height:38px; font-weight:800; color:#ffffff;">
-                ¡Bienvenido a GimiCode, ${data.user_name}!
+              <h1 class="main-title" style="margin:8px 0 10px 0; font-size:28px; line-height:36px; font-weight:800; color:#ffffff;">
+                Bienvenido a nuestro portal, ${data.user_name}
               </h1>
               <p class="intro-text" style="margin:0; font-size:15px; line-height:24px; color:#c7cfdb;">
                 ${data.reset_link
@@ -145,7 +145,7 @@ export const getWelcomeEmailTemplate = (data: {
               
               <!-- IMAGEN MASCOTA -->
               <div style="text-align:center; margin-top:30px; margin-bottom:10px;">
-                <img src="https://gimicode.vercel.app/gimi_depie.png" alt="GimiCode Mascota" style="width:160px; max-width:100%; height:auto; border:0; outline:none; text-decoration:none;" />
+                <img src="https://gimicode.com/gimi_depie.png" alt="GimiCode Mascota" style="width:160px; max-width:100%; height:auto; border:0; outline:none; text-decoration:none;" />
               </div>
             </td>
           </tr>
@@ -156,7 +156,7 @@ export const getWelcomeEmailTemplate = (data: {
               <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                   <td style="border-radius:12px; background:#8fe000;">
-                    <a href="${data.reset_link ? data.reset_link : `${data.app_url || 'https://gimicode.vercel.app'}/clientes`}" target="_blank" style="display:inline-block; padding:14px 28px; font-size:15px; font-weight:700; color:#0f1218; text-decoration:none; border-radius:12px;">
+                    <a href="${data.reset_link ? data.reset_link : `${data.app_url || 'https://gimicode.com'}/clientes`}" target="_blank" style="display:inline-block; padding:14px 28px; font-size:15px; font-weight:700; color:#0f1218; text-decoration:none; border-radius:12px;">
                       ${data.reset_link ? 'Establecer mi contraseña' : 'Ir a la Plataforma'}
                     </a>
                   </td>

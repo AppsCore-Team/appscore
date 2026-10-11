@@ -15,10 +15,12 @@ import { DocumentacionPage } from './pages/documentacion/DocumentacionPage';
 import { ManualPage } from './pages/manual/ManualPage';
 import { PerfilPage } from './pages/perfil/PerfilPage';
 import { SoportePage } from './pages/soporte/SoportePage';
+import { TemplateEmailsPage } from './pages/template_emails/TemplateEmailsPage';
 
 // Router básico
 const ROUTES = [
   { path: '/panel/permisos', module: 'permisos', Component: PermisosPage },
+  { path: '/panel/template-emails', module: 'template_emails', Component: TemplateEmailsPage },
   { path: '/panel/nuevo-proyecto', module: 'nuevo_proyecto', Component: CreateProjectPage },
   { path: '/panel/proyectos', module: 'proyectos', Component: ProyectosPage },
   { path: '/panel/contactos', module: 'contactos', Component: ContactosPage },

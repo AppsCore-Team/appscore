@@ -867,7 +867,7 @@ export const getContactEmailTemplate = (data: {
 
                     <img
                       class="mascot"
-                      src="https://gimicode.vercel.app/gimi_depie.png"
+                      src="https://gimicode.com/gimi_depie.png"
                       alt="Gimi, mascota de GimiCode"
                       width="175"
                       style="

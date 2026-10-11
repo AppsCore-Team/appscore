@@ -1,4 +1,5 @@
 import { getInviteEmailTemplate } from "../_shared/templates/inviteTemplate.ts";
+import { getCompiledEmailTemplate } from "../_shared/templateHelper.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -12,24 +13,36 @@ Deno.serve(async (req) => {
 
   try {
     const data = await req.json();
-    
+
     const user_email = data.user_email;
     const invite_code = data.invite_code;
 
     if (!invite_code || !user_email) {
-        throw new Error('Faltan datos obligatorios: invite_code o user_email');
+      throw new Error('Faltan datos obligatorios: invite_code o user_email');
     }
 
     const brevoApiKey = Deno.env.get('BREVO_API_KEY');
-    const senderEmail = Deno.env.get('BREVO_SENDER_EMAIL') || 'no-reply@gimicode.com';
-    
+    const senderEmail = Deno.env.get('BREVO_SENDER_EMAIL') || 'no-reply@mail.gimicode.com';
+
     if (!brevoApiKey) {
       throw new Error('BREVO_API_KEY no está configurada.');
     }
 
-    const app_url = req.headers.get('origin') || 'https://gimicode.vercel.app';
+    const app_url = req.headers.get('origin') || 'https://gimicode.com';
 
-    const htmlContent = getInviteEmailTemplate({ invite_code, app_url });
+    const fallbackHtml = getInviteEmailTemplate({ invite_code, app_url });
+    const fallbackSubject = 'GimiCode - Invitación Exclusiva';
+
+    const { subject, htmlContent } = await getCompiledEmailTemplate(
+      'invite',
+      {
+        invite_code,
+        app_url,
+        user_email
+      },
+      fallbackHtml,
+      fallbackSubject
+    );
 
     const res = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
@@ -41,7 +54,7 @@ Deno.serve(async (req) => {
       body: JSON.stringify({
         sender: { name: "GimiCode", email: senderEmail },
         to: [{ email: user_email, name: "Invitado" }],
-        subject: `Invitación Exclusiva a GimiCode`,
+        subject: subject,
         htmlContent: htmlContent
       })
     });

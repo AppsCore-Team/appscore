@@ -135,7 +135,8 @@ export function CitasPage({ profile, role }) {
 }
 
 function AppointmentCard({ app, isAdmin, isPast }) {
-  const dateObj = new Date(`${app.meeting_date}T00:00:00`);
+  const [yearStr, monthStr, dayStr] = app.meeting_date.split('-');
+  const dateObj = new Date(yearStr, monthStr - 1, dayStr);
   const dayName = dateObj.toLocaleDateString(undefined, { weekday: 'long' });
   const dayNum = dateObj.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
   const year = dateObj.getFullYear();
