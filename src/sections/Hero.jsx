@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../components/Button';
 import { Chip } from '../components/Chip';
@@ -62,7 +62,7 @@ export function Hero() {
           
           <div className="shrink-0 flex items-center justify-center relative w-full sm:w-auto lg:min-w-[340px] xl:min-w-[390px]">
             <div className="absolute inset-0 bg-brand/10 rounded-full blur-[80px] pointer-events-none scale-75"></div>
-            <img alt="Gimi saludando" className="relative z-10 w-64 sm:w-80 lg:w-[350px] xl:w-[390px] h-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)] hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGEfI1p3s84_tO3SawC-Gdpxh5Pj7j_Jj4ySJO0OYTSUQMDgY5KRZGkRTWVx8mgveFLlBV9LezE2DLwFeqgPzNB9uzT3GbqUOYLSEjn0FndBHlXLZJTQd8JH6a8CddVKkawkRruzXAJMBBJbt2cb6fYa3LBfKibymYa4R2s3FQXSfVoAfGSOjEC5FfO5f7AZ_0eQX25h8q6wCThUjPDdM-LDmD3HMUHmTu0sBXYq4LHH0QVX4Cd_7u_JVIjxrobMM2HA" />
+            <img alt="Gimi saludando" className="relative z-10 w-56 sm:w-64 lg:w-80 xl:w-96 max-h-[500px] h-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)] hover:scale-105 transition-transform duration-300" src="/gimi_depie.png"  />
           </div>
         </div>
       </motion.div>
@@ -79,7 +79,7 @@ export function Hero() {
             <div className="flex items-center gap-4 text-xs">
               <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-brand/10 border border-brand/25 text-brand text-xs font-medium">
                 <div className="w-6 h-6 rounded-full overflow-hidden border border-brand/40 shrink-0">
-                  <img alt="Gimi" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiwC9le3vkMbQNIGIew3x3xgFXUAxc_zJJM0NVyNKbtlvaMPjwejEbYnlquvXlswF2rBGo-2JWuLse0gpCDcoyGkXy1Ae3LYli0HQh2mPAdH_LcgVEOMXQ9Y19V5ujYC1VsB2y3JKiBuxm4ZrcIxJpEd0HWbzsXxSJtjogrfhGdIV3GuUIJNam4jAFsBY907qAO54JLuIeIhEkPM_4_T3G_IONYtHOlYgkjNafFV9w-pxZcuS6ojCyNOZRT65af0o4Og" />
+                  <img alt="Gimi" className="object-contain w-full h-full object-cover" src="/gimi_feliz.png" />
                 </div>
                 <span className="hidden sm:inline">¡Hola! Soy Gimi, tu guía en el proyecto</span>
               </div>
@@ -116,10 +116,13 @@ export function Hero() {
           </div>
           
           <div className="absolute left-1/4 sm:left-1/3 -translate-x-1/2 z-20 pointer-events-none -bottom-10">
-            <img alt="Gimi asomado detrás del borde" className="w-36 sm:w-44 md:w-52 h-auto drop-shadow-[0_12px_24px_rgba(0,0,0,0.8)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx4CnOu_z675MUTfYfc-RsGSRjG1-45ZlfSqkOEaSfDO1-YDRYiFk0RJhoDRnOq6ty7OI_j9bbRlTadzF_yV8zWLitVRCxKBnvQy_AZLHsArujzMqWRpPDfs8rLcc1Uej6MwoTUeHvl3at0GCN7Vm7GIoRr9CP6vCkgAe-SQq_ZJggvjr7g9xD6vay7ZVNKKBP27deBlgop1gRjowj_LPZAKs4BW10MfuSXFjMWOOZxk0X29wgsye8d5gp3aMSr0TMlQ" />
+            <img alt="Gimi asomado detrás del borde" className="object-contain w-32 sm:w-40 md:w-48 h-auto max-h-48 object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.8)]" src="/gimi_detras.png"  />
           </div>
         </div>
       </motion.div>
     </section>
   );
 }
+
+
+
