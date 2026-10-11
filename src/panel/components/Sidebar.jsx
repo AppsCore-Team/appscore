@@ -42,28 +42,36 @@ export function Sidebar({ modules }) {
               <div className="w-5 h-5 border-2 border-lime-500/30 border-t-lime-500 rounded-full animate-spin"></div>
             </div>
           ) : (
-            modules.map((item) => {
+            modules.map((item, index) => {
               const isActive = currentPath === item.route || (item.route !== '/panel/' && currentPath.startsWith(item.route));
+              const isDocStart = (item.route === '/panel/documentacion' || item.label?.toLowerCase().includes('documentación')) && index > 0;
+
               return (
-                <a 
-                  key={item.id} 
-                  href={item.route} 
-                  className={`flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl transition-all ${
-                    isActive 
-                      ? 'bg-lime-500/15 text-lime-400 font-semibold border border-lime-500/25 shadow-[0_0_20px_rgba(132,204,22,0.12)]' 
-                      : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.04]'
-                  }`}
-                >
-                  <span className={isActive ? 'material-symbols-filled text-[22px]' : 'material-symbols-outlined text-[22px]'}>
-                    {item.icon}
-                  </span>
-                  <span className={`text-sm ${!isActive && 'font-medium'} flex-1`}>{item.label}</span>
-                  {item.route === '/panel/soporte' && supportCount > 0 && (
-                    <span className="bg-lime-500 text-black text-[10px] px-2 py-0.5 rounded-full font-bold ml-auto shadow-[0_0_10px_rgba(132,204,22,0.4)]">
-                      {supportCount}
-                    </span>
+                <div key={item.id} className="flex flex-col gap-1.5">
+                  {isDocStart && (
+                    <div className="my-2 px-3">
+                      <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent w-full" />
+                    </div>
                   )}
-                </a>
+                  <a 
+                    href={item.route} 
+                    className={`flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl transition-all ${
+                      isActive 
+                        ? 'bg-lime-500/15 text-lime-400 font-semibold border border-lime-500/25 shadow-[0_0_20px_rgba(132,204,22,0.12)]' 
+                        : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.04]'
+                    }`}
+                  >
+                    <span className={isActive ? 'material-symbols-filled text-[22px]' : 'material-symbols-outlined text-[22px]'}>
+                      {item.icon}
+                    </span>
+                    <span className={`text-sm ${!isActive && 'font-medium'} flex-1`}>{item.label}</span>
+                    {item.route === '/panel/soporte' && supportCount > 0 && (
+                      <span className="bg-lime-500 text-black text-[10px] px-2 py-0.5 rounded-full font-bold ml-auto shadow-[0_0_10px_rgba(132,204,22,0.4)]">
+                        {supportCount}
+                      </span>
+                    )}
+                  </a>
+                </div>
               );
             })
           )}

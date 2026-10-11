@@ -1,4 +1,5 @@
 import { getContactEmailTemplate } from "../_shared/templates/contactTemplate.ts";
+import { getCompiledEmailTemplate } from "../_shared/templateHelper.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -12,17 +13,31 @@ Deno.serve(async (req) => {
 
   try {
     const data = await req.json();
-    const { user_name, user_email } = data;
+    const { user_name, user_email, company_name, project_type, message } = data;
 
     const brevoApiKey = Deno.env.get('BREVO_API_KEY');
-    const senderEmail = Deno.env.get('BREVO_SENDER_EMAIL') || 'no-reply@gimicode.com';
+    const senderEmail = Deno.env.get('BREVO_SENDER_EMAIL') || 'no-reply@mail.gimicode.com';
     const receiverEmail = Deno.env.get('BREVO_RECEIVER_EMAIL') || 'hola@gimicode.com';
     
     if (!brevoApiKey) {
       throw new Error('BREVO_API_KEY no está configurada.');
     }
 
-    const htmlContent = getContactEmailTemplate(data);
+    const fallbackHtml = getContactEmailTemplate(data);
+    const fallbackSubject = `Nueva solicitud de diagnóstico de ${user_name}`;
+
+    const { subject, htmlContent } = await getCompiledEmailTemplate(
+      'contact',
+      {
+        user_name,
+        user_email,
+        company_name: company_name || 'No especificada',
+        project_type: project_type || 'General',
+        message: message ? message.replace(/\n/g, '<br>') : ''
+      },
+      fallbackHtml,
+      fallbackSubject
+    );
 
     const res = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
@@ -35,7 +50,7 @@ Deno.serve(async (req) => {
         sender: { name: "Formulario Web", email: senderEmail },
         to: [{ email: receiverEmail, name: "Equipo GimiCode" }],
         replyTo: { email: user_email, name: user_name },
-        subject: `Nueva solicitud de diagnóstico de ${user_name}`,
+        subject: subject,
         htmlContent: htmlContent
       })
     });

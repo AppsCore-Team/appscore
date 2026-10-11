@@ -149,7 +149,7 @@ export const getInviteEmailTemplate = (data: {
 
               <!-- IMAGEN MASCOTA -->
               <div style="text-align:center; margin-top:30px; margin-bottom:10px;">
-                <img src="https://gimicode.vercel.app/gimi_depie.png" alt="GimiCode Mascota" style="width:160px; max-width:100%; height:auto; border:0; outline:none; text-decoration:none;" />
+                <img src="https://gimicode.com/gimi_depie.png" alt="GimiCode Mascota" style="width:160px; max-width:100%; height:auto; border:0; outline:none; text-decoration:none;" />
               </div>
             </td>
           </tr>
@@ -160,7 +160,7 @@ export const getInviteEmailTemplate = (data: {
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: 0 auto;">
                 <tr>
                   <td style="border-radius:12px; background:#8fe000; text-align:center;">
-                    <a href="${data.app_url || 'https://gimicode.vercel.app'}/clientes/?code=${data.invite_code}#registro" target="_blank" style="display:inline-block; padding:14px 28px; font-size:15px; font-weight:700; color:#0f1218; text-decoration:none; border-radius:12px;">
+                    <a href="${data.app_url || 'https://gimicode.com'}/clientes/?code=${data.invite_code}#registro" target="_blank" style="display:inline-block; padding:14px 28px; font-size:15px; font-weight:700; color:#0f1218; text-decoration:none; border-radius:12px;">
                       Registrarme Ahora
                     </a>
                   </td>

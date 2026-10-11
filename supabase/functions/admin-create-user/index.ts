@@ -45,8 +45,8 @@ Deno.serve(async (req) => {
 
     if (createError) throw createError;
 
-    const origin = req.headers.get('origin') || 'https://gimicode.vercel.app';
-    
+    const origin = req.headers.get('origin') || 'https://gimicode.com';
+
     // 3. Generate a password recovery link
     const { data: linkData, error: linkError } = await supabase.auth.admin.generateLink({
       type: 'recovery',

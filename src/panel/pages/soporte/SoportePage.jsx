@@ -45,7 +45,7 @@ export function SoportePage({ profile, role }) {
     try {
       const { data, error } = await supabase
         .from('project_requests')
-        .select('id, main_problem')
+        .select('id, project_name, main_problem')
         .eq('user_id', profile.id)
         .order('created_at', { ascending: false });
         
@@ -85,12 +85,21 @@ export function SoportePage({ profile, role }) {
 
       let query = supabase
         .from('tickets')
-        .select('*, profiles!tickets_client_id_fkey(full_name, company), project_requests(main_problem), assignee:profiles!tickets_assigned_to_fkey(full_name)')
+        .select('*, profiles!tickets_client_id_fkey(full_name, company), project_requests(project_name, main_problem), assignee:profiles!tickets_assigned_to_fkey(full_name)')
         .order('created_at', { ascending: false });
       
       const { data, error } = await query;
-      if (error) throw error;
-      setTickets((data || []).map(t => ({ ...t, unread_count: unreadMap[t.id] || 0 })));
+      const ticketsWithUnread = (data || []).map(t => ({ ...t, unread_count: unreadMap[t.id] || 0 }));
+      setTickets(ticketsWithUnread);
+
+      const params = new URLSearchParams(window.location.search);
+      const openId = params.get('open');
+      if (openId) {
+        const target = ticketsWithUnread.find(t => t.id === openId);
+        if (target) {
+          handleOpenTicket(target);
+        }
+      }
     } catch (err) {
       addToast('Error al cargar tickets: ' + err.message, 'error');
     } finally {
@@ -329,8 +338,8 @@ export function SoportePage({ profile, role }) {
               <div className="flex items-center gap-2 mt-1">
                 <p className="text-xs text-slate-400">Ticket #{selectedTicket.id.split('-')[0]} • Creado el {new Date(selectedTicket.created_at).toLocaleDateString()}</p>
                 {selectedTicket.project_requests && (
-                  <span className="px-2 py-0.5 rounded bg-lime-500/10 text-[10px] text-lime-400 border border-lime-500/20 font-semibold truncate max-w-[200px]" title={selectedTicket.project_requests.main_problem}>
-                    Proyecto: {selectedTicket.project_requests.main_problem}
+                  <span className="px-2 py-0.5 rounded bg-lime-500/10 text-[10px] text-lime-400 border border-lime-500/20 font-semibold truncate max-w-[200px]" title={selectedTicket.project_requests.project_name || selectedTicket.project_requests.main_problem}>
+                    Proyecto: {selectedTicket.project_requests.project_name || selectedTicket.project_requests.main_problem}
                   </span>
                 )}
                 {selectedTicket.assignee && (
@@ -684,8 +693,8 @@ export function SoportePage({ profile, role }) {
                     {ticket.project_requests && (
                       <>
                         <span>•</span>
-                        <span className="px-1.5 py-0.5 rounded bg-white/[0.05] text-[10px] text-slate-400 truncate max-w-[150px]">
-                          {ticket.project_requests.main_problem}
+                        <span className="px-1.5 py-0.5 rounded bg-white/[0.05] text-[10px] text-slate-400 truncate max-w-[150px]" title={ticket.project_requests.project_name || ticket.project_requests.main_problem}>
+                          {ticket.project_requests.project_name || ticket.project_requests.main_problem}
                         </span>
                       </>
                     )}
@@ -749,7 +758,7 @@ export function SoportePage({ profile, role }) {
                 >
                   <option value="">-- Sin proyecto asignado --</option>
                   {clientProjects.map(p => (
-                    <option key={p.id} value={p.id}>{p.main_problem}</option>
+                    <option key={p.id} value={p.id}>{p.project_name || p.main_problem}</option>
                   ))}
                 </select>
               </div>
